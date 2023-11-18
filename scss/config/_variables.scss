@@ -1,0 +1,42 @@
+// @import "functions";
+
+// TYPOGRAPHY
+// ---------------------------------------------------------------
+$font-book: "VTBGroupUIWebBook";
+$font-demibold: "VTBGroupUIWebDemiBold";
+$font-bold: 'VTBGroupUIWebBold';
+$font-light: "VTBGroupUIWebLight";
+$font-medium: "VTBGroupUIWebMedium";
+$font-semibold: "VTBGroupUISemiBold";
+$font-normal: normal;
+// $font-tertiary: "Oswald", sans-serif;
+
+$min-font-size: 14;
+$max-font-size: 20;
+// $root-font-size: 16;
+$body-font-size: calcFluidFontSize($min-font-size, $max-font-size, 320, 1920, px);
+$body-line-height: 140;
+
+
+// COLORS
+
+$color-main: #ffffff;
+$color-second: #002882;
+$color-second-hover: #0062FF;
+$color-contur-blue: #0046E2;
+$color-third: #000000;
+$color-attention: #F40000;
+$color-gray: #F3F4F8;
+
+
+// ---------------------------------------------------------------
+
+$placeholder-color: rgba(29, 36, 42, 0.7);
+
+// Animation
+// ---------------------------------------------------------------
+
+$transition: all 0.2s ease;
+
+// Box Sizing
+$box-border: border-box;

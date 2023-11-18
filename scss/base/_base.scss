@@ -1,0 +1,637 @@
+/* Global CSS */
+* {
+    box-sizing: $box-border;
+}
+
+html {
+    font-size: $body-font-size;
+}
+
+body {
+    background-color: $color-main;
+    color: $color-third;
+    font-family: $font-book;
+    font-weight: $font-normal;
+    -webkit-overflow-scrolling: touch;
+    -webkit-tap-highlight-color: transparent;
+    -webkit-touch-callout: none;
+    -webkit-user-select: none;
+    //font-size: $body-font-size + 0px;
+    line-height: normal;
+    margin: 0;
+    overflow-x: hidden;
+
+    img,
+    picture {
+        display: block;
+        width: 100%;
+    }
+}
+
+body * {
+    box-sizing: inherit;
+}
+
+a {
+    display: inline-block;
+    text-decoration: none;
+    transition: $transition;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+p {
+    display: block;
+    margin: 0;
+    padding: 0;
+    font-weight: normal;
+    line-height: normal;
+}
+
+section:not(.top-section) {
+    padding: 120px 0;
+
+    @media screen {
+        @media (max-width: 1199px) {
+            padding: 100px 0;
+        }
+
+        @media (max-width: 767px) {
+            padding: 70px 0;
+        }
+    }
+}
+
+section.white {
+    background: $color-main;
+}
+
+section.gray {
+    background: $color-gray;
+}
+
+section.blue {
+    background: $color-second;
+}
+
+.new-container {
+    max-width: 1170px;
+    margin: 0 auto;
+
+    @media screen {
+        @media (max-width: 1199px) {
+            max-width: 610px;
+        }
+
+        @media (max-width: 767px) {
+            max-width: none;
+            width: 100%;
+            padding: 0 15px;
+        }
+    }
+}
+
+button {
+    border: none;
+    outline: none;
+    margin: 0;
+    padding: 0;
+    @include pointer;
+}
+
+h1,
+.h1 {
+    font-size: 3rem;
+    font-family: $font-demibold;
+    letter-spacing: 1.2px;
+    line-height: normal;
+    padding-bottom: 30px;
+    line-height: normal;
+
+    @media screen {
+        @media (max-width: 1199px) {
+            font-size: 2rem;
+        }
+    }
+}
+
+h2,
+.h2 {
+    font-size: 2rem;
+    padding-bottom: 60px;
+    line-height: normal;
+
+    @media screen {
+        @media (max-width: 1199px) {
+            font-size: 1.5rem;
+            padding-bottom: 50px;
+        }
+    }
+
+    @media screen {
+        @media (max-width: 767px) {
+            padding-bottom: 30px;
+        }
+    }
+}
+
+.heading-black {
+    color: $color-third;
+}
+
+.heading-white {
+    color: $color-main;
+}
+
+.btn {
+    padding: 16px 60px;
+    height: 54px;
+    @include text-center;
+    border-radius: 6px;
+    font-family: $font-demibold;
+    font-size: .8rem;
+    line-height: normal;
+    letter-spacing: 0.32px;
+    transition: .3s ease-in-out;
+    overflow: hidden;
+    @include text-center;
+    z-index: 0;
+
+    @media screen {
+        @media (max-width: 1199px) {
+            padding: 13px 40px;
+            // line-height: 42px;
+            font-size: .8rem;
+            height: auto;
+            // height: 42px;
+        }
+
+        @media screen {
+            @media (max-width: 767px) {
+                font-size: 1rem;
+                font-family: $font-medium;
+                width: 100%;
+                max-width: 290px;
+            }
+        }
+    }
+
+    &.btn-blue-gradient {
+        color: $color-main;
+        background: linear-gradient(90deg, #002882 -43.26%, #0AF 100%, #0AF 100%);
+        position: relative;
+
+        &:before {
+            position: absolute;
+            content: '';
+            top: 0;
+            left: 0;
+            width: 100%;
+            background: #0AF;
+            opacity: 0;
+            transition: .3s ease-in-out;
+            height: 100%;
+            z-index: -1;
+        }
+
+        &:hover:before {
+            opacity: 1;
+        }
+    }
+
+    &.btn-blue {
+        color: $color-main;
+        background: $color-second-hover;
+
+        &:hover {
+            background: $color-second;
+        }
+    }
+
+    // $color-contur-blue: #0046E2;
+
+    &.btn-contur-blue {
+        color: $color-contur-blue;
+        background: $color-main;
+        border: 1px solid $color-contur-blue;
+        font-family: $font-medium;
+
+        &:hover {
+            background: $color-contur-blue;
+            color: $color-main;
+        }
+    }
+
+    &.btn-contur-white {
+        color: $color-main;
+        border: 1px solid $color-main;
+
+        &:hover {
+            background: $color-main;
+            color: $color-second;
+        }
+    }
+}
+
+.rub {
+    text-transform: lowercase;
+    font-family: "rouble";
+    font-weight: normal;
+    font-style: normal;
+    /*   position: relative;
+    height: auto; */
+}
+
+// Start Default Input CSS
+.default-input-wrapper {
+    $invalid-color: #F40000;
+    @include flex-column;
+    gap: 10px;
+    position: relative;
+
+    >label {
+        font-size: .7rem;
+        line-height: $body-line-height + 0%;
+    }
+
+    .default-input {
+        -webkit-appearance: none;
+        width: 100%;
+        height: 54px;
+        line-height: 54px;
+        padding: 0 18px;
+        border-radius: 6px;
+        border: none;
+        transition: $transition;
+        outline: none;
+        margin: 0;
+        font-size: .7rem;
+        @include placeholder-color($color-main);
+
+        @media screen {
+            @media (max-width: 1199px) {
+                font-size: .8rem;
+            }
+
+            @media (max-width: 767px) {
+                font-size: .9rem;
+                height: 44px;
+                line-height: 44px;
+            }
+        }
+
+        &.default-input_contur-white {
+            background: transparent;
+            border: 1px solid $color-main;
+            color: $color-main;
+
+            &:focus {
+                background: rgba($color-main, .05);
+            }
+        }
+    }
+
+    &.invalid {
+        .default-input {
+            border-color: $invalid-color;
+        }
+
+        .invalid-text {
+            position: absolute;
+            top: 100%;
+            left: 0;
+            margin-top: 5px;
+            font-size: .6rem;
+            color: $invalid-color;
+        }
+    }
+}
+
+
+
+// End Default Input CSS
+
+
+// Control Sliders
+.pagination-bounce {
+    position: relative;
+    z-index: 1;
+
+    .swiper-pagination-bullet {
+        margin: 0 7.5px;
+        width: 10px;
+        height: 10px;
+        background: $color-second;
+        opacity: 0.15;
+        position: relative;
+
+        &:before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: calc(100% + 10px);
+            height: calc(100% + 10px);
+            transform: translate(-50%, -50%);
+        }
+
+        &.swiper-pagination-bullet-active {
+            opacity: 1;
+        }
+    }
+}
+
+.swiper-button {
+    width: 30px;
+    height: 30px;
+    position: relative;
+    top: auto;
+    left: auto;
+    bottom: auto;
+    right: auto;
+    margin: 0 7.5px;
+    @include bg-style;
+    transition: $transition;
+    @include pointer;
+
+    &.disabled {
+        opacity: .4;
+    }
+}
+
+// End Control Sliders
+
+//Start Select2 CSS
+.select2.select2-container {
+    width: 100% !important;
+
+    *:focus {
+        outline: none
+    }
+}
+
+
+.select2-container--custom-select .select2-selection--single {
+    height: 54px;
+    border: 1px solid rgba(0, 40, 130, 0.15);
+    border-radius: 6px;
+    line-height: 54px;
+    padding: 0 18px;
+    padding-right: 40px;
+    color: rgba($color-third, .4);
+    font-size: .8rem;
+    position: relative;
+    transition: $transition;
+
+    @media screen {
+        @media (max-width: 1199px) {
+            height: 44px;
+            line-height: 44px;
+        }
+
+        @media (max-width: 767px) {
+            font-size: 1rem;
+        }
+    }
+}
+
+
+.select2-container--custom-select.select2-container--notfirst .select2-selection--single {
+    color: $color-third;
+
+}
+
+.select2-container--custom-select {
+    $selectorSingle: '.select2-selection--single';
+
+    #{$selectorSingle} {
+        position: relative;
+        height: auto;
+
+        &:before {
+            content: '';
+            position: absolute;
+            right: 10px;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 20px;
+            height: 20px;
+            @include bg-style;
+            background-image: url(../media/icons/select-arrow.svg);
+            background-size: auto;
+            transition: $transition;
+        }
+    }
+
+    &.select2-container--open #{$selectorSingle}:before {
+        transform: translateY(-50%) rotate(-180deg);
+    }
+}
+
+
+.select2-container--custom-select:not(.select2) {
+    .select2-dropdown {
+        border: 1px solid rgba(0, 40, 130, 0.15);
+        border-radius: 6px;
+        overflow: hidden;
+    }
+
+    .select2-search--dropdown {
+        padding: 0;
+        border-bottom: 1px solid rgba($color-second, .15);
+
+        .select2-search__field {
+            outline: none;
+            border: none;
+            padding: 10px 18px;
+            font-size: .8rem;
+            @include placeholder-color($color-third);
+
+            @media screen {
+                @media (max-width: 767px) {
+                    font-size: 1rem;
+                }
+            }
+        }
+    }
+
+    &.select2-container--open .select2-dropdown--above {
+        top: -5px;
+        // bottom: 5px;
+    }
+
+    &.select2-container--open .select2-dropdown--below {
+        top: 5px;
+    }
+
+    .select2-results__options {
+        overflow: auto;
+        max-height: 300px;
+
+        &.scroll-content.scroll-scrolly_visible {
+            overflow: auto !important;
+            margin-bottom: 0 !important;
+        }
+    }
+
+    .select2-results__option {
+        padding: 10px 18px;
+        font-size: .8rem;
+        padding-right: 35px;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        display: block;
+        transition: $transition;
+
+        &[aria-disabled=true] {
+            display: none;
+        }
+
+        &[aria-selected=true] {
+            background: rgba(0, 40, 130, 0.05);
+            color: $color-second;
+            position: relative;
+
+            &:before {
+                content: '';
+                position: absolute;
+                width: 5px;
+                height: 12px;
+                right: 15px;
+                top: 15px;
+                border-right: 1px solid;
+                border-bottom: 1px solid;
+                border-color: $color-second;
+                transform: rotate(45deg);
+            }
+        }
+
+        &.select2-results__option--highlighted:not([aria-selected=true]) {
+            color: $color-second;
+            background: rgba(0, 40, 130, 0.02);
+        }
+
+        @media screen {
+            @media (max-width: 767px) {
+                font-size: 1rem;
+            }
+        }
+    }
+}
+
+.select2-container--custom-select .select2-results .select2-results__options.select2-results__options--nested {
+    overflow: auto;
+    max-height: none;
+}
+
+//End Select2 CSS
+
+
+// Start Custom Scroll  
+.scroll-wrapper {
+    >.scroll-content.scroll-scrolly_visible {
+        left: -4px;
+        margin-left: 4px;
+    }
+
+    >.scroll-element.scroll-y {
+        width: 4px;
+        height: 100%;
+        min-height: 100%;
+        top: 0;
+        right: 0;
+        position: absolute;
+        border: none;
+        margin: 0;
+        overflow: hidden;
+        padding: 0;
+        z-index: 10;
+    }
+
+    >.scroll-element div {
+        display: block;
+        height: 100%;
+        left: 0;
+        top: 0;
+        width: 100%;
+        position: absolute;
+    }
+
+    >.scroll-element.scroll-y .scroll-element_size {
+        background: #F0F2F5;
+        border-radius: 2px;
+    }
+
+    >.scroll-element .scroll-element_track {
+        opacity: 0;
+    }
+
+    >.scroll-element.scroll-y .scroll-bar {
+        background: #D1D3DB;
+        border-radius: 2px;
+        border: none;
+        transition: background 0.2s ease;
+    }
+
+    >.scroll-element.scroll-y .scroll-bar:hover {
+        background: #9698a3;
+    }
+}
+
+// End Custom Scroll
+
+// Start Link CSS
+.link {
+    font-family: $font-book;
+    font-size: .8rem;
+    transition: $transition;
+}
+
+// End Link CSS
+
+// Start Label CSS 
+.label {
+    padding: 5px 10px;
+    line-height: normal;
+    font-size: .6rem;
+    border-radius: 10px;
+    overflow: hidden;
+    color: $color-main;
+
+    &.label-red {
+        background: #F40000;
+    }
+
+    &.label-green {
+        background: #009999;
+    }
+
+    &.label-yellow {
+        background: #FFA800;
+    }
+
+    @media screen {
+        @media (max-width: 767px) {
+            font-size: .8rem;
+        }
+    }
+}
+
+// End Label CSS
+
+
+// Start Table CSS
+table {
+    width: 100%;
+    // text-align: center;
+    border-collapse: collapse;
+    border-spacing: 0;
+    border: none;
+}
+
+//End Table CSS
