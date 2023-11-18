@@ -45,6 +45,10 @@ const BlockScroll = {
 
 jQuery(document).ready(function ($) {
 
+    AOS.init({
+        once: true,
+    });
+
     // Инициализация слайдера "Больше возможностей"
     const InitSliderMore = {
         defaultsOptions: {
