@@ -535,7 +535,7 @@ Theme Version:	1.0
             }
 
             @media (max-width: 767px) {
-                font-size: 1.5rem;
+                font-size: 1.7rem;
             }
         }
 
@@ -556,7 +556,7 @@ Theme Version:	1.0
                 }
 
                 @media (max-width: 767px) {
-                    font-size: 1rem;
+                    font-size: 1.1rem;
                 }
             }
         }
@@ -573,7 +573,7 @@ Theme Version:	1.0
                 }
 
                 @media (max-width: 767px) {
-                    font-size: .8rem;
+                    font-size: .9rem;
                 }
             }
 
@@ -632,7 +632,7 @@ Theme Version:	1.0
 
         @media screen {
             @media (max-width: 767px) {
-                font-size: .85rem;
+                font-size: 1rem;
                 max-width: none;
             }
         }
@@ -861,6 +861,12 @@ Theme Version:	1.0
         .title {
             font-family: $font-medium;
             font-size: 1.5rem;
+
+            @media screen {
+                @media (max-width: 767px) {
+                    font-size: 1.7rem;
+                }
+            }
         }
 
         .text {
@@ -870,7 +876,7 @@ Theme Version:	1.0
 
             @media screen {
                 @media (max-width: 767px) {
-                    font-size: .85rem;
+                    font-size: 1rem;
                 }
             }
         }
@@ -898,7 +904,7 @@ $color-profit-blue: #0132B0;
             }
 
             @media (max-width: 767px) {
-                font-size: 1.5rem;
+                font-size: 1.3rem;
                 max-width: 100%;
                 // white-space: nowrap;
                 // text-overflow: ellipsis;
@@ -1429,6 +1435,7 @@ $color-profit-blue: #0132B0;
         @media screen {
             @media (max-width: 767px) {
                 margin-top: 15px;
+                font-size: 1.1rem;
             }
         }
     }
@@ -1443,6 +1450,10 @@ $color-profit-blue: #0132B0;
         @media screen {
             @media (max-width: 1199px) {
                 font-size: .8rem;
+            }
+
+            @media (max-width: 767px) {
+                font-size: .9rem;
             }
         }
     }
@@ -1566,6 +1577,10 @@ $color-profit-blue: #0132B0;
             @media (max-width: 1199px) {
                 font-size: 1rem;
             }
+
+            @media (max-width: 767px) {
+                font-size: 1.1rem;
+            }
         }
     }
 
@@ -1577,6 +1592,10 @@ $color-profit-blue: #0132B0;
         @media screen {
             @media (max-width: 1199px) {
                 font-size: .8rem;
+            }
+
+            @media (max-width: 767px) {
+                font-size: .9rem;
             }
         }
     }
@@ -1609,7 +1628,7 @@ $color-profit-blue: #0132B0;
         @media (max-width: 767px) {
             padding: 10px 0;
             padding-right: 50px;
-            font-size: 1rem;
+            font-size: 1.1rem;
         }
     }
 

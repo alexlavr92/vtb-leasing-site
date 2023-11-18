@@ -278,7 +278,7 @@ h2,
             }
 
             @media (max-width: 767px) {
-                font-size: .9rem;
+                font-size: 1rem;
                 height: 44px;
                 line-height: 44px;
             }
@@ -360,6 +360,14 @@ h2,
 
     &.disabled {
         opacity: .4;
+    }
+
+    &:hover,
+    &:active,
+    &:focus,
+    &>*:focus {
+        outline: none;
+        border: none;
     }
 }
 

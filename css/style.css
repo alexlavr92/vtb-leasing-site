@@ -793,7 +793,7 @@ h2,
 }
 @media screen and (max-width: 767px) {
   .default-input-wrapper .default-input {
-    font-size: 0.9rem;
+    font-size: 1rem;
     height: 44px;
     line-height: 44px;
   }
@@ -862,6 +862,10 @@ h2,
 }
 .swiper-button.disabled {
   opacity: 0.4;
+}
+.swiper-button:hover, .swiper-button:active, .swiper-button:focus, .swiper-button > *:focus {
+  outline: none;
+  border: none;
 }
 
 .select2.select2-container {
@@ -2014,7 +2018,7 @@ header.sticky {
 }
 @media screen and (max-width: 767px) {
   .catalog-item-descript .item-name {
-    font-size: 1.5rem;
+    font-size: 1.7rem;
   }
 }
 .catalog-item-descript .item-price {
@@ -2035,7 +2039,7 @@ header.sticky {
 }
 @media screen and (max-width: 767px) {
   .catalog-item-descript .item-price > .item-price-current {
-    font-size: 1rem;
+    font-size: 1.1rem;
   }
 }
 .catalog-item-descript .item-price > .item-price-old {
@@ -2051,7 +2055,7 @@ header.sticky {
 }
 @media screen and (max-width: 767px) {
   .catalog-item-descript .item-price > .item-price-old {
-    font-size: 0.8rem;
+    font-size: 0.9rem;
   }
 }
 .catalog-item-descript .item-price > .item-price-old:after {
@@ -2105,7 +2109,7 @@ header.sticky {
 }
 @media screen and (max-width: 767px) {
   .catalog-item-descript .btn {
-    font-size: 0.85rem;
+    font-size: 1rem;
     max-width: none;
   }
 }
@@ -2356,6 +2360,11 @@ header.sticky {
   font-family: "VTBGroupUIWebMedium";
   font-size: 1.5rem;
 }
+@media screen and (max-width: 767px) {
+  .request-inline-modal .content-left .title {
+    font-size: 1.7rem;
+  }
+}
 .request-inline-modal .content-left .text {
   font-family: "VTBGroupUIWebLight";
   line-height: normal;
@@ -2363,7 +2372,7 @@ header.sticky {
 }
 @media screen and (max-width: 767px) {
   .request-inline-modal .content-left .text {
-    font-size: 0.85rem;
+    font-size: 1rem;
   }
 }
 
@@ -2383,7 +2392,7 @@ header.sticky {
 }
 @media screen and (max-width: 767px) {
   .profit-wrapper-top .title {
-    font-size: 1.5rem;
+    font-size: 1.3rem;
     max-width: 100%;
   }
 }
@@ -2889,6 +2898,7 @@ header.sticky {
 @media screen and (max-width: 767px) {
   .all-inclusive-slide .title {
     margin-top: 15px;
+    font-size: 1.1rem;
   }
 }
 .all-inclusive-slide .text {
@@ -2901,6 +2911,11 @@ header.sticky {
 @media screen and (max-width: 1199px) {
   .all-inclusive-slide .text {
     font-size: 0.8rem;
+  }
+}
+@media screen and (max-width: 767px) {
+  .all-inclusive-slide .text {
+    font-size: 0.9rem;
   }
 }
 
@@ -3041,6 +3056,11 @@ header.sticky {
     font-size: 1rem;
   }
 }
+@media screen and (max-width: 767px) {
+  .days-item-content .title {
+    font-size: 1.1rem;
+  }
+}
 .days-item-content .text {
   padding-top: 10px;
   font-size: 0.7rem;
@@ -3049,6 +3069,11 @@ header.sticky {
 @media screen and (max-width: 1199px) {
   .days-item-content .text {
     font-size: 0.8rem;
+  }
+}
+@media screen and (max-width: 767px) {
+  .days-item-content .text {
+    font-size: 0.9rem;
   }
 }
 
@@ -3081,7 +3106,7 @@ header.sticky {
   .faq-item-switcher {
     padding: 10px 0;
     padding-right: 50px;
-    font-size: 1rem;
+    font-size: 1.1rem;
   }
 }
 .faq-item.open .faq-item-switcher, .faq-item-switcher:hover {
