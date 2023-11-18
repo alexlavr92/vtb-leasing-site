@@ -198,18 +198,40 @@ h2,
             z-index: -1;
         }
 
-        &:hover:before {
-            opacity: 1;
+        @media screen {
+            @media (min-width: 1200px) {
+                &:hover:before {
+                    opacity: 1;
+                }
+            }
+
+            @media (max-width: 1199px) {
+                &:active:before {
+                    opacity: 1;
+                }
+            }
         }
+
     }
 
     &.btn-blue {
         color: $color-main;
         background: $color-second-hover;
 
-        &:hover {
-            background: $color-second;
+        @media screen {
+            @media (min-width: 1200px) {
+                &:hover {
+                    background: $color-second;
+                }
+            }
+
+            @media (max-width: 1199px) {
+                &:active {
+                    background: $color-second;
+                }
+            }
         }
+
     }
 
     // $color-contur-blue: #0046E2;
@@ -220,20 +242,46 @@ h2,
         border: 1px solid $color-contur-blue;
         font-family: $font-medium;
 
-        &:hover {
-            background: $color-contur-blue;
-            color: $color-main;
+
+        @media screen {
+            @media (min-width: 1200px) {
+                &:hover {
+                    background: $color-contur-blue;
+                    color: $color-main;
+                }
+            }
+
+            @media (max-width: 1199px) {
+                &:active {
+                    background: $color-contur-blue;
+                    color: $color-main;
+                }
+            }
         }
+
     }
 
     &.btn-contur-white {
         color: $color-main;
         border: 1px solid $color-main;
 
-        &:hover {
-            background: $color-main;
-            color: $color-second;
+        @media screen {
+            @media (min-width: 1200px) {
+                &:hover {
+                    background: $color-main;
+                    color: $color-second;
+                }
+            }
+
+            @media (max-width: 1199px) {
+                &:active {
+                    background: $color-main;
+                    color: $color-second;
+                }
+            }
         }
+
+
     }
 }
 

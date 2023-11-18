@@ -680,15 +680,29 @@ h2,
   height: 100%;
   z-index: -1;
 }
-.btn.btn-blue-gradient:hover:before {
-  opacity: 1;
+@media screen and (min-width: 1200px) {
+  .btn.btn-blue-gradient:hover:before {
+    opacity: 1;
+  }
+}
+@media screen and (max-width: 1199px) {
+  .btn.btn-blue-gradient:active:before {
+    opacity: 1;
+  }
 }
 .btn.btn-blue {
   color: #ffffff;
   background: #0062FF;
 }
-.btn.btn-blue:hover {
-  background: #002882;
+@media screen and (min-width: 1200px) {
+  .btn.btn-blue:hover {
+    background: #002882;
+  }
+}
+@media screen and (max-width: 1199px) {
+  .btn.btn-blue:active {
+    background: #002882;
+  }
 }
 .btn.btn-contur-blue {
   color: #0046E2;
@@ -696,17 +710,33 @@ h2,
   border: 1px solid #0046E2;
   font-family: "VTBGroupUIWebMedium";
 }
-.btn.btn-contur-blue:hover {
-  background: #0046E2;
-  color: #ffffff;
+@media screen and (min-width: 1200px) {
+  .btn.btn-contur-blue:hover {
+    background: #0046E2;
+    color: #ffffff;
+  }
+}
+@media screen and (max-width: 1199px) {
+  .btn.btn-contur-blue:active {
+    background: #0046E2;
+    color: #ffffff;
+  }
 }
 .btn.btn-contur-white {
   color: #ffffff;
   border: 1px solid #ffffff;
 }
-.btn.btn-contur-white:hover {
-  background: #ffffff;
-  color: #002882;
+@media screen and (min-width: 1200px) {
+  .btn.btn-contur-white:hover {
+    background: #ffffff;
+    color: #002882;
+  }
+}
+@media screen and (max-width: 1199px) {
+  .btn.btn-contur-white:active {
+    background: #ffffff;
+    color: #002882;
+  }
 }
 
 .rub {
