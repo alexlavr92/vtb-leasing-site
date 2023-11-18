@@ -1,0 +1,83 @@
+// Start Faq CSS
+.faq-item {
+    @include flex-column;
+
+    &+& {
+        border-top: 1px solid rgba(0, 40, 130, 0.15);
+    }
+
+    // &:not(.open) .faq-item-content {
+
+    // }
+}
+
+.faq-item-switcher {
+    position: relative;
+    padding: 20px 20px;
+    padding-right: 50px;
+    color: $color-third;
+    transition: $transition;
+    width: 100%;
+
+    @media screen {
+        @media (max-width: 767px) {
+            padding: 10px 0;
+            padding-right: 50px;
+            font-size: 1.1rem;
+        }
+    }
+
+    .faq-item.open &,
+    &:hover {
+        color: $color-second;
+    }
+
+    &:after {
+        content: '';
+        position: absolute;
+        top: 50%;
+        right: 20px;
+        transform: translateY(-50%);
+        width: 20px;
+        height: 20px;
+        background-image: url(../media/icons/select-arrow.svg);
+        @include bg-style;
+        background-size: auto;
+        transition: $transition;
+    }
+
+    .faq-item.open &:after {
+        transform: translateY(-50%) rotate(-180deg);
+    }
+
+    // padding: ;
+}
+
+.faq-item-content {
+    display: none;
+    padding: 10px 20px 30px;
+    font-size: .8rem;
+    line-height: $body-line-height + 0%;
+
+    >a {
+        color: inherit;
+
+        &.with-border {
+            border-bottom: 1px solid;
+            // transition: $transition;
+
+            &:hover {
+                border-color: transparent;
+            }
+        }
+    }
+
+    @media screen {
+        @media (max-width: 767px) {
+            padding: 10px 0 20px;
+            font-size: .9rem;
+        }
+    }
+}
+
+//End Faq CSS

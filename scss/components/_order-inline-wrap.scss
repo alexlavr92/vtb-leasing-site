@@ -1,0 +1,116 @@
+// Start Request Inline with Modal
+.request-inline-modal {
+    border-radius: 6px;
+    overflow: hidden;
+    position: relative;
+    background: $color-second;
+
+    .img-wrapper {
+        width: 347px;
+
+        @media screen {
+            @media (max-width: 1199px) {
+                // order: 1;
+                position: absolute;
+                top: 0;
+                right: 0;
+                height: 100%;
+                width: auto;
+            }
+
+            @media (max-width: 767px) {
+                // order: 1;
+                position: absolute;
+                top: 0;
+                right: 0;
+                left: 0;
+                height: auto;
+                width: 100%;
+            }
+        }
+
+        picture {
+            height: 100%;
+        }
+
+        img {
+            height: 100%;
+            object-fit: cover;
+            object-position: left center;
+        }
+    }
+
+    .content {
+        flex: 1;
+        min-width: 0;
+        padding: 0 65px;
+        flex-wrap: nowrap;
+        align-items: center;
+        color: $color-main;
+        gap: 50px;
+        position: relative;
+
+        @media screen {
+            @media (max-width: 1199px) {
+                padding: 40px;
+                gap: 30px;
+                @include flex-column;
+            }
+
+            @media (max-width: 767px) {
+                padding: 40px 15px;
+                max-width: 290px;
+                margin: 0 auto;
+                padding-top: 60vw;
+                gap: 40px;
+            }
+        }
+
+
+        .btn {
+            flex-shrink: 0;
+            font-family: $font-medium;
+        }
+    }
+
+    .content-left {
+        @include flex-column;
+        gap: 10px;
+
+        @media screen {
+            @media (max-width: 1199px) {
+                max-width: 50%;
+            }
+
+            @media (max-width: 767px) {
+                max-width: none;
+            }
+        }
+
+
+        .title {
+            font-family: $font-medium;
+            font-size: 1.5rem;
+
+            @media screen {
+                @media (max-width: 767px) {
+                    font-size: 1.7rem;
+                }
+            }
+        }
+
+        .text {
+            font-family: $font-light;
+            line-height: normal;
+            font-size: .8rem;
+
+            @media screen {
+                @media (max-width: 767px) {
+                    font-size: 1rem;
+                }
+            }
+        }
+    }
+}
+
+// End Request Inline with Modal

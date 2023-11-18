@@ -1,0 +1,227 @@
+// Start Form CSS
+.request-inline-wrapper {
+    @media screen {
+        @media (max-width: 767px) {
+            max-width: 290px;
+            margin: 0 auto;
+        }
+    }
+}
+
+.request-inline {
+    position: relative;
+
+    .img-wrapper {
+        position: absolute;
+        top: 0;
+        right: 0;
+        height: 100%;
+        width: 45%;
+
+        @media screen {
+            @media (max-width: 1199px) {
+                right: 0;
+                bottom: 0;
+                top: auto;
+                height: auto;
+                width: 70%;
+            }
+
+            @media (max-width: 767px) {
+                right: 0;
+                left: auto;
+                bottom: 0;
+                top: auto;
+                height: auto;
+                width: 100%;
+            }
+        }
+
+        // @include bg-style;
+        // background-position: left center;
+        picture {
+            height: 100%;
+        }
+
+        img {
+            height: 100%;
+            object-fit: cover;
+            object-position: left center;
+        }
+
+    }
+}
+
+.request-inline-wrapper .h2 {
+    font-family: $font-book;
+    text-transform: uppercase;
+    line-height: normal;
+    padding-bottom: 50px;
+    position: relative;
+
+    @media screen {
+        @media (max-width: 1199px) {
+            padding-bottom: 40px;
+        }
+
+        @media (max-width: 767px) {
+            padding-bottom: 30px;
+        }
+    }
+}
+
+.form-request-inline {
+    margin: 0 -10px;
+    align-items: flex-end;
+    position: relative;
+
+    @media screen {
+        @media (max-width: 1199px) {
+            @include flex-column;
+            margin: 0;
+            gap: 20px;
+        }
+    }
+
+    .default-input-wrapper {
+        color: $color-main;
+        width: calc(33.3% - 20px);
+        margin: 0 10px;
+        max-width: 350px;
+
+        @media screen {
+            @media (max-width: 1199px) {
+                width: 350px;
+                margin: 0;
+
+            }
+
+            @media (max-width: 767px) {
+                width: 100%;
+                max-width: none;
+                // margin: 0;
+
+            }
+        }
+
+
+        >label {
+            font-size: .7rem;
+            line-height: $body-line-height + 0%;
+
+            @media screen {
+                @media (max-width: 1199px) {
+                    font-size: .8rem;
+                }
+
+                @media (max-width: 767px) {
+                    font-size: .9rem;
+                }
+            }
+        }
+    }
+
+    .btn {
+        margin: 0 10px;
+        font-family: $font-medium;
+
+        @media screen {
+            @media (min-width: 1200px) {
+                &.btn-blue:hover {
+                    color: $color-second;
+                    background: $color-main;
+                }
+            }
+
+            @media (max-width: 1199px) {
+
+                &.btn-blue:active {
+                    color: $color-second;
+                    background: $color-main;
+                }
+
+                width: 350px;
+                margin: 0;
+                margin-top: 30px;
+                min-height: 54px;
+            }
+
+            @media (max-width: 767px) {
+                min-height: auto;
+                margin-top: 20px;
+            }
+        }
+    }
+
+    &+.cont-text {
+        margin-top: 30px;
+        font-size: .6rem;
+        color: $color-main;
+        position: relative;
+
+        >a {
+            color: inherit;
+            display: inline;
+            border-bottom: 1px solid;
+
+            @media screen {
+                @media (min-width: 1200px) {
+                    &:hover {
+                        border-color: transparent;
+                    }
+                }
+            }
+
+            &:active {
+                border-color: transparent;
+            }
+        }
+
+        @media screen {
+            @media (max-width: 1199px) {
+                max-width: 350px;
+            }
+
+            @media (max-width: 767px) {
+                padding: 10px;
+                border-radius: 5px;
+                background: rgba($color-second-hover, .6);
+            }
+        }
+    }
+}
+
+.request-inline-success {
+    align-items: center;
+    max-width: 55%;
+    position: relative;
+
+    @media screen {
+        @media (max-width: 1199px) {
+            max-width: 80%;
+        }
+
+        @media (max-width: 767px) {
+            max-width: 290px;
+            margin: 0 auto;
+            width: 100%;
+        }
+    }
+
+    .h2 {
+        font-family: $font-book;
+        text-transform: uppercase;
+        line-height: normal;
+        padding-bottom: 0;
+    }
+
+    &:not(.show) {
+        display: none;
+    }
+
+    &.show {
+        display: flex !important;
+    }
+}
+
+// End Form CSS

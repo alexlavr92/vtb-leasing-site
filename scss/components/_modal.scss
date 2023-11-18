@@ -1,0 +1,122 @@
+// Start Modal CSS
+.blocker.current {
+    z-index: 10;
+
+    @media screen {
+        @media (max-width: 767px) {
+            padding: 0;
+        }
+    }
+}
+
+.modal.modal-request {
+    width: 1170px;
+    border-radius: 10px;
+    overflow: hidden;
+    background: $color-second;
+    color: $color-main;
+    max-width: 1170px;
+    box-shadow: none;
+    padding: 0;
+
+    @media screen {
+        @media (max-width: 1199px) {
+            width: 100%;
+            max-width: 768px;
+        }
+
+        @media (max-width: 767px) {
+            width: 100%;
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            overflow: auto;
+            max-width: none;
+        }
+    }
+
+    .modal-wrapper {
+        padding: 65px 70px;
+        position: relative;
+
+        @media screen {
+            @media (max-width: 1199px) {
+                padding: 40px;
+            }
+
+            @media (max-width: 767px) {
+                padding: 60vw 15px 40px;
+
+                .cont-text {
+                    background: transparent;
+                }
+            }
+        }
+    }
+
+    a.close-modal {
+        position: absolute;
+        top: 30px;
+        right: 40px;
+        width: 30px;
+        height: 30px;
+        @include bg-style;
+        background-size: auto;
+        background-image: url(../media/icons/close-modal.svg);
+
+        @media screen {
+            @media (max-width: 767px) {
+                right: 15px;
+                top: 20px;
+            }
+        }
+    }
+
+    .request-inline-success {
+        width: 60%;
+        max-width: 60%;
+
+        @media screen {
+            @media (max-width: 767px) {
+                width: 100%;
+                max-width: 290px;
+                margin: 0 auto;
+            }
+        }
+    }
+
+    .img-wrapper {
+        position: absolute;
+        top: 0;
+        right: 0;
+        height: 100%;
+        width: 40%;
+
+        // @include bg-style;
+        @media screen {
+            @media (max-width: 1199px) {
+                width: 50%;
+            }
+
+            @media (max-width: 767px) {
+                width: 100%;
+                height: auto;
+            }
+        }
+
+        picture,
+        img {
+            display: block;
+            height: 100%;
+        }
+
+        img {
+            object-fit: cover;
+            object-position: left center;
+        }
+    }
+}
+
+// End Modal CSS

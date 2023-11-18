@@ -1,0 +1,141 @@
+// Start Steps CSS
+.days {
+    @media screen {
+        @media (max-width: 767px) {
+            .heading-black {
+                max-width: 250px;
+            }
+        }
+    }
+}
+
+.days-items {
+    @media screen {
+        @media (max-width: 1199px) {
+            @include flex-column;
+        }
+    }
+}
+
+.days-item {
+    width: 20%;
+    @include flex-column;
+
+    @media screen {
+        @media (max-width: 1199px) {
+            flex-direction: row;
+            gap: 20px;
+            width: 100%;
+            align-items: initial;
+
+            &:last-child .days-item-content {
+                padding-bottom: 0;
+            }
+        }
+    }
+}
+
+.days-step-number {
+    width: 100%;
+    position: relative;
+
+    @media screen {
+        @media (max-width: 1199px) {
+            width: auto;
+        }
+    }
+
+    .current-step {
+        width: 40px;
+        height: 40px;
+        line-height: 40px;
+        text-align: center;
+        // line-height: normal;
+        border-radius: 50%;
+        background: $color-main;
+        font-family: $font-medium;
+        color: $color-second;
+
+        @media screen {
+            @media (max-width: 767px) {
+                font-size: 1.3rem;
+            }
+        }
+    }
+
+    .days-item:not(:last-child) &:before {
+        content: '';
+        position: absolute;
+        width: calc(100% - 40px);
+        right: 0;
+        top: 50%;
+        transform: translateY(-50%);
+        height: 2px;
+        background: $color-second;
+
+        @media screen {
+            @media (max-width: 1199px) {
+                width: 2px;
+                bottom: 0;
+                top: auto;
+                height: calc(100% - 40px);
+                transform: translateX(-50%);
+                left: 50%;
+                right: auto;
+            }
+        }
+    }
+}
+
+.days-item-content {
+    @include flex-column;
+    padding-right: 40px;
+    margin-top: 15px;
+
+    @media screen {
+        @media (max-width: 1199px) {
+            flex: 1;
+            min-width: 0;
+            flex-shrink: 0;
+            margin-top: 0;
+            padding-right: 0;
+            padding-bottom: 30px;
+            padding-top: 10px;
+            max-width: 75%;
+        }
+    }
+
+    .title {
+        font-size: .9rem;
+        font-family: $font-medium;
+        // @include text-ellipsis;
+
+        @media screen {
+            @media (max-width: 1199px) {
+                font-size: 1rem;
+            }
+
+            @media (max-width: 767px) {
+                font-size: 1.1rem;
+            }
+        }
+    }
+
+    .text {
+        padding-top: 10px;
+        font-size: .7rem;
+        line-height: $body-line-height + 0%;
+
+        @media screen {
+            @media (max-width: 1199px) {
+                font-size: .8rem;
+            }
+
+            @media (max-width: 767px) {
+                font-size: .9rem;
+            }
+        }
+    }
+}
+
+//End Steps CSS

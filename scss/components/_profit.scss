@@ -1,0 +1,430 @@
+// Start Profit Wrapper
+$color-profit-blue: #0132B0;
+
+.profit-wrapper-top {
+    position: relative;
+
+    .title {
+        font-family: $font-medium;
+        font-size: 1.5rem;
+        padding-bottom: 15px;
+
+        @media screen {
+            @media (max-width: 1199px) {
+                font-size: 1rem;
+                padding-bottom: 10px;
+            }
+
+            @media (max-width: 767px) {
+                font-size: 1.3rem;
+                max-width: 100%;
+                // white-space: nowrap;
+                // text-overflow: ellipsis;
+                // overflow: hidden;
+            }
+        }
+    }
+
+    .img-wrapper {
+        position: absolute;
+        right: 0;
+        top: 50%;
+        transform: translateY(-50%);
+        width: 420px;
+
+        @media screen {
+            @media (max-width: 1199px) {
+                width: 230px;
+            }
+
+            @media (max-width: 767px) {
+                position: relative;
+                width: 100%;
+                top: auto;
+                transform: none;
+            }
+        }
+    }
+
+    .content {
+        @include flex-column;
+        gap: 15px;
+        width: 40%;
+
+        @media screen {
+            @media (max-width: 1199px) {
+                gap: 10px;
+                width: 60%;
+            }
+
+            @media (max-width: 767px) {
+                width: 100%;
+            }
+        }
+    }
+
+    .content-item {
+        // width: 40%;
+        flex-wrap: nowrap;
+        gap: 10px;
+        align-items: flex-end;
+
+        @media screen {
+            @media (max-width: 767px) {
+                justify-content: space-between;
+                width: 100%;
+            }
+        }
+
+        >div:first-child {
+            width: 273px;
+            font-size: .9rem;
+
+            @media screen {
+                @media (max-width: 1199px) {
+                    width: 205px;
+                    font-size: .8rem;
+
+                }
+
+                @media (max-width: 767px) {
+                    flex: 1;
+                    // min-width: 60%;
+                    width: auto;
+                    max-width: 205px;
+                    font-size: .9rem
+                }
+            }
+        }
+
+        >div:last-child {
+            font-family: $font-medium;
+            color: $color-profit-blue;
+            font-size: 1rem;
+
+            @media screen {
+                @media (max-width: 1199px) {
+                    width: 205px;
+                    font-size: .9rem;
+
+                }
+
+                @media (max-width: 767px) {
+                    width: auto;
+                    // flex: 1;
+                    // flex-shrink: 0;
+                    font-size: 1rem;
+                }
+            }
+        }
+    }
+}
+
+.profit-wrapper-top+.profit-wrapper-table {
+    margin-top: 100px;
+
+    @media screen {
+        @media (max-width: 1199px) {
+            margin-top: 50px;
+        }
+
+        @media (max-width: 767px) {
+            margin-top: 40px;
+        }
+    }
+}
+
+.profit-wrapper-table {
+    $color-border: rgba($color-second, .15);
+
+    border-radius: 10px;
+    border: 1px solid $color-border;
+    // overflow: hidden;
+
+    @media screen {
+        @media (max-width: 767px) {
+            border: none;
+            border-radius: 0;
+        }
+    }
+
+    .columns-item_table th {
+        height: 50px;
+        padding: 10px 0;
+
+        @media screen {
+            @media (max-width: 767px) {
+                height: auto;
+                text-align: left;
+            }
+        }
+    }
+
+    .table-column-main {
+        width: 55%;
+        padding: 10px 0;
+        padding-left: 40px;
+        padding-right: 25px;
+
+        @media screen {
+            @media (max-width: 1199px) {
+                padding-left: 15px;
+                padding-right: 20px;
+                width: 50%;
+            }
+
+            @media (max-width: 767px) {
+                display: none;
+            }
+        }
+
+        tr:first-child td {
+            border-top: none;
+        }
+    }
+
+    .table-column-contents {
+        flex: 1;
+        min-width: 0;
+        flex-shrink: 0;
+        padding: 10px 0;
+
+        @media screen {
+            @media (max-width: 767px) {
+                @include flex-column;
+                gap: 10px;
+                padding: 0;
+            }
+        }
+
+        .columns-item_table {
+            flex: 1;
+            min-width: 0;
+            padding: 0 16px;
+            position: relative;
+            z-index: 0;
+
+            @media screen {
+                @media (max-width: 1199px) {
+                    padding: 0 5px;
+                }
+
+                @media (max-width: 767px) {
+                    padding: 10px;
+                    width: 100%;
+                    border-radius: 6px;
+                    border: 1px solid $color-border;
+                }
+            }
+
+            .table-td-content {
+                justify-content: flex-end;
+
+                @media screen {
+                    @media (max-width: 767px) {
+                        position: relative;
+                        z-index: 0;
+                        gap: 10px;
+                        align-items: flex-end;
+                        justify-content: space-between;
+
+                        &:before {
+                            content: attr(data-before);
+                            position: relative;
+                            font-family: $font-book;
+                            text-align: left;
+                            flex: 1;
+                            flex-shrink: 0;
+                            padding: 5px 0;
+                            border-bottom: 1px solid $color-border;
+                        }
+
+                        >div {
+                            padding: 5px 0;
+                            min-width: 80px;
+                            border-bottom: 1px solid $color-border;
+                        }
+                    }
+                }
+            }
+
+            &:last-child {
+                @media screen {
+                    @media (max-width: 1199px) {
+                        margin-right: 10px;
+                    }
+
+                    @media (max-width: 767px) {
+                        margin-right: 0;
+                    }
+                }
+            }
+
+            table {
+                text-align: right;
+
+                th {
+                    color: $color-profit-blue;
+                    font-weight: normal;
+                    font-family: $font-book;
+
+                    @media screen {
+                        @media (max-width: 767px) {
+                            font-family: $font-demibold;
+                            font-size: 1.1rem;
+                            padding: 5px 0;
+                            padding-top: 0;
+                        }
+                    }
+                }
+
+                td {
+                    @media screen {
+                        @media (max-width: 767px) {
+                            border: none;
+                            padding: 0;
+
+                            &.td-blue {
+                                @media screen {
+                                    @media (max-width: 767px) {
+                                        .table-td-content:before {
+                                            color: $color-profit-blue;
+                                            font-family: $font-demibold;
+                                        }
+
+                                        .table-td-content:before,
+                                        .table-td-content>div {
+                                            padding-bottom: 10px;
+                                        }
+                                    }
+                                }
+                            }
+
+                            &.td-bg-blue {
+
+                                .table-td-content:after {
+                                    content: '';
+                                    position: absolute;
+                                    top: -1px;
+                                    background: $color-profit-blue;
+                                    left: 50%;
+                                    z-index: -1;
+                                    border-bottom-left-radius: 5px;
+                                    border-bottom-right-radius: 5px;
+                                    transform: translateX(-50%);
+                                    width: calc(100% + 21px);
+                                    height: calc(100% + 11px);
+                                }
+
+                                .table-td-content:before {
+                                    font-family: $font-demibold;
+                                }
+
+                                .table-td-content:before,
+                                .table-td-content>div {
+                                    border: none;
+                                    padding-top: 10px;
+                                    color: $color-main;
+                                }
+                            }
+                        }
+                    }
+                }
+
+                tr.tr-hidden-mob {
+                    @media screen {
+                        @media (max-width: 767px) {
+                            display: none;
+                        }
+                    }
+                }
+            }
+
+            &:first-child {
+                tr:last-child td {
+                    position: relative;
+                    border-top: none;
+                    z-index: 0;
+                    color: $color-main;
+                    font-family: $font-demibold;
+
+                    &:before {
+                        content: '';
+                        position: absolute;
+                        top: 0;
+                        left: 50%;
+                        transform: translateX(-50%);
+                        width: calc(100% + 34px);
+                        height: calc(100% + 21px);
+                        background: $color-profit-blue;
+                        border-bottom-left-radius: 5px;
+                        border-bottom-right-radius: 5px;
+                        z-index: -1;
+
+                        @media screen {
+                            @media (max-width: 1199px) {
+                                width: calc(100% + 10px);
+                                height: calc(100% + 25px);
+                            }
+                        }
+                    }
+                }
+
+                &:before {
+                    content: '';
+                    position: absolute;
+                    top: 50%;
+                    left: 50%;
+                    transform: translate(-50%, -50%);
+                    height: calc(100% + 40px);
+                    width: 100%;
+                    background: #F6F7FA;
+                    z-index: -1;
+                    border-radius: 6px;
+                    border: 1px solid $color-profit-blue;
+                    box-shadow: 0px 4px 20px 0px rgba(0, 0, 0, 0.10);
+
+                    @media screen {
+                        @media (max-width: 767px) {
+                            content: none;
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    tr:last-child td {
+        height: 70px;
+        vertical-align: middle;
+    }
+
+    td {
+        font-size: .9rem;
+        padding: 10px 0;
+        border-top: 1px solid $color-border;
+
+        @media screen {
+            @media (max-width: 1199px) {
+                font-size: 14px;
+            }
+
+        }
+
+        &.blue {
+            color: $color-profit-blue;
+            font-family: $font-demibold;
+        }
+
+        .blue,
+        .sub {
+            color: $color-profit-blue;
+        }
+
+        .blue {
+            font-family: $font-demibold;
+        }
+    }
+}
+
+// End Profit Wrapper

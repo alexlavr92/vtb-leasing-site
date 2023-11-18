@@ -124,7 +124,7 @@ jQuery(document).ready(function ($) {
                         $thisObj.renderSizeSlides(sliderContainer)
                         const $this = this
                         setTimeout(function () {
-                            console.log('update')
+                            // console.log('update')
                             $this.update()
                         }, 1);
                     }
@@ -222,7 +222,7 @@ jQuery(document).ready(function ($) {
                 }, 0);
 
                 if ($(e.currentTarget).hasClass('select-custom-search')) {
-                    console.log(e)
+                    // console.log(e)
                     $(".select2-container.select2-container--custom-select:not(.select2)").addClass("select2-search");
                     var SelectSearchField = $(".select2-container.select2-container--custom-select:not(.select2)").find(".select2-search__field");
                     setTimeout(() => {
@@ -611,7 +611,7 @@ jQuery(document).ready(function ($) {
 
             })
             $('body').on('modal:open', modalElem, function (event, modal) {
-                console.log(event, modal)
+                // console.log(event, modal)
 
                 BlockScroll.open()
             })
@@ -635,7 +635,7 @@ jQuery(document).ready(function ($) {
     // Обработчик клика на якоря
     $("body").on("click", "a[href^='#']:not(.close-modal), .top-btn", function (e) {
         e.preventDefault();
-        console.log($(this))
+        // console.log($(this))
         if ($(this).closest('.header-mob-inner').length) {
             $(this).closest('.header-mob-inner').find('.top-close').trigger('click')
         }

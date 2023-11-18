@@ -1,0 +1,73 @@
+/*
+Name: 			style.css
+Written by: 	Lavrinenko Aleksandr
+Theme Version:	1.0
+*/
+
+// COMMON IMPORTS
+@import "config/imports";
+
+// HELPERS
+@import "base/helpers";
+
+// BASE
+@import "base/base";
+
+
+// header
+@import "base/header";
+
+
+// Top Section 
+@import "components/top-section";
+
+
+// More Possibilities 
+@import "components/more-possibles";
+
+// Catalog
+@import "components/catalog";
+
+// Start Request Inline with Modal
+.catalog-wrapper+.request-inline-modal {
+    margin-top: 80px;
+
+    @media screen {
+        @media (max-width: 767px) {
+            margin-top: 70px;
+        }
+    }
+}
+
+@import "components/order-inline-wrap";
+
+
+// Start Profit Wrapper
+@import "components/profit";
+
+
+// Start All Inclusive
+@import "components/all-inclusive";
+
+
+// Start Steps CSS
+@import "components/steps";
+
+
+
+
+// Start Faq CSS
+@import "components/faq";
+
+
+
+// Start Form CSS
+@import "components/inline-form";
+
+
+// Start Modal CSS
+@import "components/modal";
+
+
+// footer
+@import "base/footer";

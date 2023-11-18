@@ -1,0 +1,125 @@
+// Top Section CSS 
+
+.top-section {
+    position: relative;
+    z-index: 0;
+
+    .top-section-back {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        // @include bg-style;
+        // background-position: center right;
+        // background-position: center right;
+        // background-size: contain;
+        // background-repeat: no-repeat;
+
+        // &:after {
+        //     content: '';
+        //     position: absolute;
+        //     width: 71%;
+        //     height: 100%;
+        //     left: 0;
+        //     top: 0;
+        //     background: linear-gradient(90deg, #002882 55.53%, rgba(0, 40, 130, 0.00) 99.84%);
+
+
+        // }
+        picture {
+            height: 100%;
+        }
+
+        img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            object-position: center;
+
+            @media screen {
+                @media (max-width: 767px) {
+                    object-position: center bottom;
+                }
+            }
+        }
+    }
+
+
+}
+
+.top-section-content {
+    padding: 175px 0;
+    position: relative;
+    z-index: 1;
+    @include flex-column;
+    max-width: 520px;
+    color: $color-main;
+    line-height: normal;
+
+    h1 {
+        @media screen {
+            @media (max-width: 1199px) {
+                padding-bottom: 15px;
+            }
+
+            @media (max-width: 767px) {
+                max-width: 250px;
+                padding-bottom: 10px;
+            }
+        }
+    }
+
+    >.subtitle {
+        font-family: $font-medium;
+        font-size: 1.4rem;
+
+        // margin-top: 30px;
+        @media screen {
+            @media (max-width: 1199px) {
+                font-size: 1rem;
+            }
+
+            @media (max-width: 767px) {
+                max-width: 250px;
+            }
+        }
+    }
+
+    >.btn {
+        margin-top: 100px;
+
+        @media screen {
+            @media (max-width: 1199px) {
+                margin-top: 40px;
+            }
+
+            // @media (max-width: 767px) {
+            //     width: 100%;
+            //     max-width: 290px;
+            // }
+        }
+    }
+
+    @media screen {
+        @media (max-width: 1660px) {
+            padding: 5rem 0;
+        }
+
+        @media (max-width: 1199px) {
+            padding: 50px 0;
+            max-width: 240px;
+        }
+
+        @media (max-width: 767px) {
+            padding-top: 12vw;
+            padding-bottom: 40vw;
+            align-items: center;
+            max-width: none;
+            width: 100%;
+            @include text-center;
+        }
+    }
+}
+
+// End Top Section CSS 
