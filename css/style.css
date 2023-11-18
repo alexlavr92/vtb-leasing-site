@@ -3310,9 +3310,11 @@ header.sticky {
   margin: 0 10px;
   font-family: "VTBGroupUIWebMedium";
 }
-.form-request-inline .btn.btn-blue:hover {
-  color: #002882;
-  background: #ffffff;
+@media screen and (min-width: 1200px) {
+  .form-request-inline .btn.btn-blue:hover {
+    color: #002882;
+    background: #ffffff;
+  }
 }
 @media screen and (max-width: 1199px) {
   .form-request-inline .btn {
@@ -3320,6 +3322,10 @@ header.sticky {
     margin: 0;
     margin-top: 30px;
     min-height: 54px;
+  }
+  .form-request-inline .btn.btn-blue:active {
+    color: #002882;
+    background: #ffffff;
   }
 }
 @media screen and (max-width: 767px) {

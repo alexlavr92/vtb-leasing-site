@@ -1814,13 +1814,21 @@ $color-profit-blue: #0132B0;
         margin: 0 10px;
         font-family: $font-medium;
 
-        &.btn-blue:hover {
-            color: $color-second;
-            background: $color-main;
-        }
-
         @media screen {
+            @media (min-width: 1200px) {
+                &.btn-blue:hover {
+                    color: $color-second;
+                    background: $color-main;
+                }
+            }
+
             @media (max-width: 1199px) {
+
+                &.btn-blue:active {
+                    color: $color-second;
+                    background: $color-main;
+                }
+
                 width: 350px;
                 margin: 0;
                 margin-top: 30px;
