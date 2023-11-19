@@ -858,6 +858,10 @@ table {
                 @media (max-width: 1199px) {
                     font-size: .9rem;
                 }
+
+                @media (max-width: 767px) {
+                    padding-right: 0;
+                }
             }
         }
     }

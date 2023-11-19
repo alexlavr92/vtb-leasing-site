@@ -1307,6 +1307,11 @@ table {
     font-size: 0.9rem;
   }
 }
+@media screen and (max-width: 767px) {
+  .tootlip-wrapper.tootlip-question .tooltip {
+    padding-right: 0;
+  }
+}
 
 .tooltip-content {
   display: none;
