@@ -63,6 +63,15 @@ Theme Version:	1.0
         }
     }
 
+    .card-slider {
+        @media screen {
+            @media (max-width: 767px) {
+                padding: 0 15px;
+                margin: 0 -15px;
+            }
+        }
+    }
+
     .swiper-button {
         position: absolute;
         top: 50%;
@@ -154,7 +163,7 @@ Theme Version:	1.0
 
         @media screen {
             @media (max-width: 1199px) {
-                height: 48vw;
+                height: 43vw;
                 max-height: 360px;
             }
 

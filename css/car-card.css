@@ -1772,6 +1772,12 @@ header.sticky {
     padding: 0;
   }
 }
+@media screen and (max-width: 767px) {
+  .card-slider-outer .card-slider {
+    padding: 0 15px;
+    margin: 0 -15px;
+  }
+}
 .card-slider-outer .swiper-button {
   position: absolute;
   top: 50%;
@@ -1859,7 +1865,7 @@ header.sticky {
 }
 @media screen and (max-width: 1199px) {
   .card-slider .swiper-slide {
-    height: 48vw;
+    height: 43vw;
     max-height: 360px;
   }
 }

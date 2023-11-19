@@ -839,7 +839,7 @@ jQuery(document).ready(function ($) {
         defaultsOptions: {
             slidesVisible: 1,
             slidesGroup: 1,
-            SpaceBetweenPx: 0,
+            SpaceBetweenPx: 15,
             windowWidth: document.body.clientWidth
         },
         init: function (options) {
