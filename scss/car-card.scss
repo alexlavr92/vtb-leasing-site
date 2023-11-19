@@ -156,11 +156,13 @@ Theme Version:	1.0
     margin-left: 38px;
 
     @media screen {
-        @media (max-width: 1199px) {
+        @media (max-width: 767px) {
             margin: 0 auto;
+            width: 100%;
+            max-width: 320px;
             // margin-left: 0;
             margin-top: 20px;
-            max-width: 290px;
+            /*  max-width: 290px; */
         }
     }
 
@@ -189,6 +191,17 @@ Theme Version:	1.0
 
     .btn-wrapper {
         margin-top: 50px;
+
+        @media screen {
+            @media (max-width: 767px) {
+                @include text-center;
+
+                .btn {
+                    max-width: none;
+                    width: 100%;
+                }
+            }
+        }
     }
 }
 
@@ -205,7 +218,7 @@ Theme Version:	1.0
         @media screen {
             @media (max-width: 767px) {
                 width: 100%;
-                gap: 5px;
+                gap: 3px;
             }
         }
 
@@ -220,7 +233,7 @@ Theme Version:	1.0
                 @media (max-width:767px) {
                     flex: 1;
                     @include text-center;
-                    font-size: 1.1rem;
+                    font-size: 1rem;
                     padding: 8px 6px;
                 }
             }
