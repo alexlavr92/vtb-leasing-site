@@ -225,3 +225,89 @@
 }
 
 // End Form CSS
+
+// Start Requset Inline Card
+.request-inline-card {
+    .request-inline-wrapper {
+        .h2 {
+            max-width: 70%;
+
+            @media screen {
+                @media (max-width: 767px) {
+                    max-width: none;
+                }
+            }
+        }
+    }
+
+    .form-request-inline {
+        max-width: 740px;
+        position: relative;
+        row-gap: 20px;
+        align-items: center;
+
+        @media screen {
+            @media (max-width: 1199px) {
+                max-width: 350px;
+                align-items: flex-start;
+            }
+        }
+
+        .default-input-wrapper {
+            width: calc(50% - 20px);
+
+            @media screen {
+                @media (max-width: 1199px) {
+                    width: 100%;
+                }
+            }
+        }
+
+        .btn {
+            position: absolute;
+            bottom: 0;
+            left: 100%;
+            margin-left: 20px;
+            margin-right: 0;
+            white-space: nowrap;
+
+            @media screen {
+                @media (max-width: 1199px) {
+                    position: relative;
+                    bottom: auto;
+                    left: auto;
+                    margin-left: 0;
+                }
+            }
+        }
+
+        .default-input-mail~.email-text {
+            position: absolute;
+            top: 100%;
+            left: 0;
+            margin-top: 20px;
+            font-size: .6rem;
+            color: rgba($color-main, .4);
+
+            @media screen {
+                @media (max-width: 767px) {
+                    margin-top: 15px;
+                }
+            }
+        }
+
+        .default-checkbox-wrapper {
+            align-self: flex-end;
+            margin-bottom: 7px;
+
+            @media screen {
+                @media (max-width: 1199px) {
+                    margin-bottom: 0;
+                    margin-top: 40px;
+                }
+            }
+        }
+    }
+}
+
+// End Requset Inline Card

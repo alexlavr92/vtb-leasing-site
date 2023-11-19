@@ -273,6 +273,7 @@ jQuery(document).ready(function ($) {
             var valIn = $(this).text();
             var valInNew = valIn.toString().replace(/(\d)(?=(\d\d\d)+(?!\d))/g, "$1 ");
             $(this).text(valInNew);
+            return valInNew;
         });
     };
     // добавляем пробелы в числа во всех тегах с классом this-number
@@ -289,7 +290,14 @@ jQuery(document).ready(function ($) {
             SpaceBetweenPx: 0,
             windowWidth: document.body.clientWidth
         },
+        sliderUpdate: function (nosSlider) {
+            // const $this = this
+            setTimeout(function () {
+                nosSlider.update()
+            }, 1);
+        },
         init: function (options) {
+            const obj = this
             var options = $.extend(this.defaultsOptions, options)
             const sliderContainer = options.sliderWrapper.find('.catalog-item-slider'),
                 sliderBtnPrev = options.sliderWrapper.find('.swiper-button.prev'),
@@ -311,14 +319,12 @@ jQuery(document).ready(function ($) {
                     disabledClass: "disabled",
                 },
                 on: {
-                    // init: function () {
-                    //     $thisObj.renderSizeSlides(sliderContainer)
-                    // },
+                    init: function () {
+                        obj.sliderUpdate(this)
+                        //     $thisObj.renderSizeSlides(sliderContainer)
+                    },
                     resize: function () {
-                        const $this = this
-                        setTimeout(function () {
-                            $this.update()
-                        }, 1);
+                        obj.sliderUpdate(this)
 
                         // this.updateSlides()
                         // console.log(document.body.clientWidth)
@@ -514,7 +520,16 @@ jQuery(document).ready(function ($) {
 
     // Submit Отправки формы 
     $('body').on('submit', '.form-request-inline', function (e) {
-        e.preventDefault()
+
+        e.preventDefault();
+        let ValidateEmail = function (email) {
+            // console.log(email.value)
+            var reg = /^([A-Za-z0-9_\-\.])+\@([A-Za-z0-9_\-\.])+\.([A-Za-z]{2,4})$/;
+            if (reg.test(email.val()) == false) {
+                return false
+            }
+            else return true
+        }
         const _form = $(this),
             _formFields = _form.find('input')
         let InvalidCount = 0
@@ -537,12 +552,21 @@ jQuery(document).ready(function ($) {
             }
             else {
                 if (nowField.hasClass('default-input-phone') && !nowField.inputmask("isComplete")) {
-                    AddInvalidText(nowField, 'Некорректно заполнено номер телефона')
+                    AddInvalidText(nowField, 'Некорректно заполнен номер телефона')
+                    InvalidCount++
+                }
+                if (nowField.hasClass('default-input-mail') && !ValidateEmail(nowField)) {
+                    AddInvalidText(nowField, 'Некорректно заполнен email')
                     InvalidCount++
                 }
             }
+            if (nowField.hasClass('default-input-checkbox') && nowField.prop('checked') == false) {
+                const checkFieldWrapper = nowField.closest('.default-input-wrapper')
+                checkFieldWrapper.addClass('invalid')
+                InvalidCount++
+            }
         })
-        // console.log(InvalidCount)
+        console.log(InvalidCount)
         if (InvalidCount == 0) {
             const _formWrapper = _form.closest('.request-inline-wrapper'),
                 _formWrapperHeight = _formWrapper.innerHeight(),
@@ -578,7 +602,9 @@ jQuery(document).ready(function ($) {
             _fieldWrapper.removeClass('invalid')
             _fieldWrapper.find('.invalid-text').remove()
         }
-
+        _field.val() != ''
+            ? _field.addClass('active')
+            : _field.removeClass('active')
     })
 
 
@@ -600,15 +626,18 @@ jQuery(document).ready(function ($) {
                 closeText: '<span class="visually-hidden">Закрыть</span>',
                 clickClose: options.click_close, // новое 28.11.2022
             });
-            this.events(ThisHash)
+            this.events(ThisHash, options.callElem)
         },
-        events: function (modalElem) {
-            // console.log(modalElem)
+        events: function (modalElem, callElem) {
+            console.log(modalElem, callElem)
             $('body').on('modal:before-open', modalElem, function (event, modal) {
                 modal.$blocker.addClass('current-custom')
                 modal.$elm.find('.request-inline-wrapper').css('display', '')
                 modal.$elm.find('.request-inline-success').css('display', '').removeClass('show')
-
+                if (callElem.siblings('.video-js').length) {  // Устанавливаем на паузу видео если была открыта модалка на видео
+                    callElem.siblings('.video-js').find('video')[0].pause()
+                }
+                // console.log(event, modal)
             })
             $('body').on('modal:open', modalElem, function (event, modal) {
                 // console.log(event, modal)
@@ -616,8 +645,12 @@ jQuery(document).ready(function ($) {
                 BlockScroll.open()
             })
             $('body').on('modal:close', modalElem, function (event, modal) {
-                if (!$('.mob-switcher.open').length)
+                if (!$('.mob-switcher.open').length) {
+                    modal.$elm.find('.invalid').removeClass('invalid')
+                    modal.$elm.find('.invalid-text').remove()
+                    modal.$elm.find('input').val('')
                     BlockScroll.close()
+                }
             })
         }
     }
@@ -626,6 +659,7 @@ jQuery(document).ready(function ($) {
         // console.log($(this))
         e.preventDefault()
         ModalElem.init({
+            callElem: $(this),
             modalHash: $(this).attr('data-id')
         })
     })
@@ -800,6 +834,538 @@ jQuery(document).ready(function ($) {
     }
     //----------------------//
 
+    // Инициализация слайдеров в карточке автомобиля
+    const InitCardSlider = {
+        defaultsOptions: {
+            slidesVisible: 1,
+            slidesGroup: 1,
+            SpaceBetweenPx: 0,
+            windowWidth: document.body.clientWidth
+        },
+        init: function (options) {
+            var options = $.extend(this.defaultsOptions, options)
+            const sliderContainer = options.sliderWrapper.find('.card-slider'),
+                sliderBtnPrev = options.sliderWrapper.find('.swiper-button.prev'),
+                sliderBtnNext = options.sliderWrapper.find('.swiper-button.next')
+
+            // console.log(options.sliderWrapper)
+
+            let swiper = new Swiper(sliderContainer, {
+                slidesPerView: options.slidesVisible,
+                slidesPerGroup: options.slidesGroup,
+                grabCursor: true,
+                preloadImages: false,
+                lazy: true,
+                spaceBetween: options.SpaceBetweenPx,
+                watchOverflow: true,
+                watchSlidesVisibility: true,
+                touchReleaseOnEdges: true,
+                navigation: {
+                    nextEl: sliderBtnNext,
+                    prevEl: sliderBtnPrev,
+                    disabledClass: "disabled",
+                },
+                on: {
+                    init: function () {
+                        const $this = this
+                        setTimeout(function () {
+                            $this.update()
+                        }, 10);
+                    },
+
+                    resize: function () {
+                        const $this = this
+                        setTimeout(function () {
+                            $this.update()
+                        }, 10);
+                    }
+                },
+
+            })
+            // this.events(sliderContainer, options.windowWidth)
+        }
+    }
+    if ($('.card-slider-outer').length) {
+        $.each($('.card-slider-outer'), function () {
+            InitCardSlider.init({
+                sliderWrapper: $(this)
+            })
+        })
+    }
+    //----------------------//
+
+    // Обработчик клика на переключение месяцев в карточке автомобиля
+    $('body').on('click', '.card-top-content .price-tabs-switcher:not(.active)', function (e) {
+        e.preventDefault()
+        const $this = $(this),
+            $thisSiblings = $this.siblings('.active'),
+            $thisTabs = $this.closest('.card-price-tabs'),
+            $thisTabsEditContent = {
+                tabsMileAge: $thisTabs.find('.price-tab-mileage span'),
+                tabsPriceCurrent: $thisTabs.find('.price-tab-prices--current span:first-child'),
+                tabsPriceOld: $thisTabs.find('.price-tab-prices--old span:first-child')
+            },
+            $thisAttr = {
+                tabsMileAge: $this.attr('data-mileage'),
+                tabsPriceCurrent: $this.attr('data-price-current'),
+                tabsPriceOld: $this.attr('data-price-old')
+            }
+        for (var key in $thisTabsEditContent) {
+            if ($thisTabsEditContent.hasOwnProperty(key)) {
+                const $obj = $thisTabsEditContent
+                $obj[key].text($thisAttr[key])
+                SpaceNumber($obj[key])
+                // console.log(key + " -> " + $thisTabsEditContent[key]);
+            }
+        }
+        $thisSiblings.removeClass('active')
+        $this.addClass('active')
+    })
+    //----------------------//
+
+
+
+    const Tooltip = {
+        defaultsOptions: {
+            tooltipElems: $('.tooltip')
+        },
+        init: function (options) {
+            var options = $.extend(this.defaultsOptions, options)
+            this.events(options)
+        },
+        events: function (options) {
+            // console.log('.' + (options.tooltipElems[0].className) + '')
+            $('body').on('mouseenter mouseleave click', '.' + (options.tooltipElems[0].className) + '', function (e) {
+                e.preventDefault()
+                const TooltipState = {
+                    docWidth: document.body.clientWidth,
+                    open: function (tooltipElem) {
+                        console.log(tooltipElem)
+                        // const docWidth = document.body.clientWidth
+                        if (!tooltipElem.hasClass("tooltip-open")) {
+                            $(".tooltip_content.tooltip-base").remove();
+                            options.tooltipElems.removeClass("tooltip-open");
+                            tooltipElem.addClass("tooltip-open");
+                            let thistooltip = tooltipElem.next(".tooltip-content"),
+                                thisTooltipClone = thistooltip.clone();
+                            $(thisTooltipClone).appendTo("body");
+                            console.log($(thisTooltipClone).innerHeight())
+                            if (this.docWidth >= 1200) {
+                                $(thisTooltipClone).css({
+                                    position: "absolute",
+                                    "z-index": "3",
+                                    top: tooltipElem.offset().top - ($(thisTooltipClone).innerHeight() + 15),
+                                });
+                                if (document.body.hasAttribute("data-body-scroll-fix")) {
+                                    let NowOffsetTop = $(thisTooltipClone).css("top"),
+                                        BodyOffsetTop = document.body.getAttribute("data-body-scroll-fix");
+                                    /* console.log(gf) */
+                                    $(thisTooltipClone).css("top", parseInt(NowOffsetTop) + parseInt(BodyOffsetTop));
+                                    $(thisTooltipClone).css("z-index", "4"); // новое 14.06.2022
+                                }
+                                if (tooltipElem.width() < $(thisTooltipClone).width()) {
+                                    console.log('ок')
+                                    $(thisTooltipClone).css("left", tooltipElem.offset().left - ($(thisTooltipClone).innerWidth() - tooltipElem.innerWidth()) / 2);
+                                } else if (tooltipElem.width() >= $(thisTooltipClone).width()) {
+                                    $(thisTooltipClone).css("left", tooltipElem.offset().left + (tooltipElem.innerWidth() - $(thisTooltipClone).innerWidth()) / 2);
+                                }
+                            } else {
+                                BlockScroll.open();
+                            }
+
+                            $(thisTooltipClone).fadeIn().addClass("tooltip-base");
+                            if (this.docWidth >= 1200) {
+                                let ToolTipOffset = $(thisTooltipClone).offset().left;
+                                if (ToolTipOffset < 0) {
+                                    $(thisTooltipClone).css("left", tooltipElem.offset().left - 15).addClass("tooltip-base--over-left");
+                                }
+                                if (this.docWidth - (ToolTipOffset + $(thisTooltipClone).innerWidth()) < 0) {
+                                    $(thisTooltipClone)
+                                        .css("left", tooltipElem.offset().left - $(thisTooltipClone).innerWidth() + tooltipElem.innerWidth() + 15)
+                                        .addClass("tooltip-base--over-right");
+                                }
+                            }
+                        }
+                    },
+                    close: function (tooltipElem) {
+                        console.log(this.docWidth)
+                        tooltipElem.removeClass("tooltip-open");
+                        $(".tooltip-content.tooltip-base").remove();
+                        if (this.docWidth < 1200) BlockScroll.close(); // новое
+                        /*  console.log('tooltip icon close') */
+                    }
+                }
+                if (document.body.clientWidth >= 1200) {
+                    if (e.type == 'mouseenter') {
+                        // console.log($(this))
+                        this.docWidth = document.body.clientWidth
+                        TooltipState.open($(this))
+                    }
+                    if (e.type == 'mouseleave') {
+                        this.docWidth = document.body.clientWidth
+                        // console.log($(this))
+                        TooltipState.close($(this))
+                        // console.log('увод')
+                    }
+                }
+                else {
+
+                }
+            })
+        }
+    }
+
+    if ($('.tooltip').length) {
+        Tooltip.init()
+    }
+    // Обработки клика по документу вне области tooltip //
+    $(document).on("click", function (e) {
+        // событие клика по веб-документу
+        if ($(".tooltip_content.tooltip-base").length > 0) {
+            var div;
+            if (docWidth >= 1200) {
+                div = $(".tooltip_content.tooltip-base");
+            } else {
+                div = $(".tooltip_content.tooltip-base .tooltip-wrapper");
+            }
+            //
+            var div2 = $(".tooltip.tooltip-open");
+            if (
+                !div.is(e.target) && // если клик был не по нашему блоку
+                div.has(e.target).length === 0 &&
+                !div2.is(e.target) && // если клик был не по нашему блоку
+                div2.has(e.target).length === 0
+            ) {
+                // и не по его дочерним элементам
+                $(div2).removeClass("tooltip-open");
+                if (docWidth >= 1200) $(div).remove();
+                else {
+                    $(div).parent(".tooltip_content.tooltip-base").remove();
+                    if ($("body").find(".jquery-modal").length == 0) blockScroll("close");
+                }
+                /* console.log('tooltip-base remove') */
+            }
+        }
+    });
+    //----------------------//
+
+    // Обработка клика по крестику в тултипе //
+    $("body").on("click", ".tooltip_content .close-btn", function (e) {
+        e.preventDefault();
+        $(".tooltip-open.tooltip-open").removeClass("tooltip-open");
+        $(this).parents(".tooltip_content").remove();
+        if (docWidth < 1200) {
+            if ($("body").find(".jquery-modal").length == 0) blockScroll("close");
+        }
+    });
+    //----------------------//
+
+
+    const TabsCardInit = {
+        defaultsOptions: {
+            tabSwitcher: 'card-descript-switcher',
+            tabsWrapper: 'card-descript-tabs',
+            tabsContent: 'card-descript-content'
+        },
+        init: function (options) {
+            var options = $.extend(this.defaultsOptions, options)
+            // console.log('.' + options.tabSwitcher + ':not(.active)')
+            this.events(options)
+        },
+        events: function (options) {
+            $('body').on('click', '.' + options.tabSwitcher + ':not(.active)', function () {
+                // console.log($(this))
+                const _thisSwitcher = $(this),
+                    _thisSwitherIndex = _thisSwitcher.index(),
+                    _tabsWrapper = _thisSwitcher.closest('.' + options.tabsWrapper + ''),
+                    _tabsContents = _tabsWrapper.find('.' + options.tabsContent + '')
+                // console.log(_thisSwitcher, _tabsWrapper, _tabsContents)
+                if (_tabsContents.filter('.active.animate-height.open').length) {
+                    _tabsContents.filter('.active.animate-height.open').children('.btn-wrapper').find('.link').trigger('click')
+                }
+
+                _thisSwitcher.siblings('.active').removeClass('active')
+                _thisSwitcher.addClass('active')
+                _tabsContents.filter('.active').removeClass('active').css('display', '')
+                _tabsContents.filter(':nth-child(' + (_thisSwitherIndex + 1) + ')').fadeIn({
+                    duration: 300,
+                    start: function () {
+                        $(this).addClass('active')
+                        if ($(this).find('.card-descript-items').length && !$(this).hasClass('animate-height')) {
+                            const newObj = new AnimateHeightDescriptItems({
+                                descriptItems: $(this).find('.card-descript-items'),
+                                itemsHeight: $(this).find('.card-descript-items').attr('data-height')
+                            })
+                        }
+                    },
+                    complete: function () {
+
+                    }
+                    // complete: function () {
+
+                    // }
+                })
+            })
+        }
+    }
+    if ($('.card-descript-tabs').length) {
+        TabsCardInit.init()
+    }
+
+    function AnimateHeightDescriptItems(options) {
+        this.options = options
+        this.defaultsOptions = {
+            // descriptItems: 'card-descript-items',
+            // itemsHeightHidden: 300
+        }
+        this.ReCalculateHeight = function (options) {
+            const descriptItems = options.descriptItems
+            if (options.tabContent.hasClass('open'))
+                options.btnMore.trigger('click')
+            descriptItems.css('height', '').removeClass('hide')
+            options.ItemsHeightNow = descriptItems.innerHeight()
+            // console.log(options.ItemsHeightNow)
+            descriptItems.css('height', options.itemsHeight + 'px').addClass('hide')
+
+        }
+        this.init = function (options) {
+            var options = $.extend(this.defaultsOptions, options)
+            const descriptItems = options.descriptItems
+            options.tabContent = descriptItems.closest('.card-descript-content')
+            const tabContent = options.tabContent
+            if (descriptItems.innerHeight() > options.itemsHeight) {
+                options.ItemsHeightNow = descriptItems.innerHeight()
+                // console.log(options.ItemsHeightNow)
+                const ItemsHeight = options.itemsHeight
+                // console.log(ItemsHeight)
+                descriptItems.css('height', ItemsHeight + 'px').addClass('hide')
+                tabContent.addClass('animate-height')
+                const BtnMore = "<div class='btn-wrapper'><a href='javascript: void(0)' class='link link-blue' data-before='Скрыть'>Читать полностью</a></div>"
+                $(BtnMore).appendTo(tabContent)
+                options.btnMore = tabContent.find('.link')
+            }
+            this.events(options)
+        }
+        this.events = function (options) {
+            const obj = this
+            $(window).on('resize', function () {
+                //console.log(obj)
+                obj.ReCalculateHeight(options)
+            })
+            if (options.btnMore) {
+                options.btnMore.on('click', function (e) {
+                    e.preventDefault()
+                    options.tabContent.toggleClass('open')
+                    const BtnMoreText = options.btnMore.text()
+                    options.btnMore.text(options.btnMore.attr('data-before')).attr('data-before', BtnMoreText)
+                    if (options.tabContent.hasClass('open')) {
+                        options.descriptItems.animate({
+                            height: options.ItemsHeightNow
+                        })
+                    }
+                    else {
+                        options.descriptItems.animate({
+                            height: options.itemsHeight
+                        })
+                    }
+                })
+            }
+            else return false
+        }
+        this.init(this.options)
+    }
+
+
+    // Инициализация видеоплеера //
+    const InitVideo = function (videoOptions) {
+        this.options = {
+            controls: true,
+            autoplay: false,
+        }
+        this.init = function (videoOptions) {
+            // console.log(videoOptions, this.options)
+            const options = videoOptions,
+                player = videojs(options.videoElem, this.options, function onPlayerReady() {
+                    videojs.log('Your player is ready!');
+
+                    let showBtnVideo = function () {
+                        options.videoBtn.fadeIn({
+                            duration: 300,
+                            complete: function () {
+                                $(this).addClass('show')
+                            }
+                        })
+                    }
+                    const TimeToShowBtn = parseInt(options.videoTimeShow)
+                    // console.log(TimeToShowBtn)
+                    player.on('play', function () {
+                        this.on('loadedmetadata', function () {
+                            const videoDuration = this.duration()
+                            // console.log(videoDuration)
+                            if (parseInt(videoDuration) <= TimeToShowBtn) {
+                                // console.log('короче')
+                                this.on('ended', function () {
+                                    showBtnVideo()
+                                });
+                            }
+                            else {
+                                this.on('timeupdate', function () {
+                                    const currentTime = this.currentTime()
+                                    // console.log(currentTime)
+                                    if (parseInt(currentTime) >= TimeToShowBtn) {
+                                        showBtnVideo()
+                                    }
+                                })
+                            }
+                        })
+                    })
+                    // In this context, `this` is the player that was created by Video.js.
+                    // this.play();
+
+                    // How about an event listener?
+                    // this.on('ended', function () {
+                    //     videojs.log('Awww...over so soon?!');
+                    // });
+                })
+            return player
+
+        }
+        this.player = this.init(videoOptions)
+    }
+
+
+    if ($('.video-js').length) {
+        $.each($('.video-js'), function () {
+            const $this = $(this),
+                $thisBtn = $this.siblings('.btn')
+            var player = new InitVideo({
+                videoElem: $this.attr('id'),
+                videoTimeShow: $this.attr('data-time'),
+                videoBtn: $thisBtn
+            })
+            // console.log(player)
+        })
+    }
+    //----------------------//
+
+    // Инициализация слайдера "Больше возможностей"
+    const InitSliderFavourite = {
+        defaultsOptions: {
+            slidesVisible: 3,
+            slidesGroup: 1,
+            SpaceBetweenPx: 32,
+            // windowWidth: document.body.clientWidth
+        },
+        // renderSizeSlides: function (sliderContainer) {
+        //     const slides = sliderContainer.find('.all-inclusive-slide')
+        //     slides.css({ 'min-height': '' })
+        //     let MaxItemHeight = 0
+
+        //     $.each(slides, function () {
+        //         if ($(this).innerHeight() >= MaxItemHeight) {
+        //             // console.log($(this).innerHeight())
+        //             MaxItemHeight = $(this).innerHeight()
+        //         }
+        //     })
+        //     // console.log(MaxItemHeight)
+        //     slides.css({ 'min-height': MaxItemHeight + 'px' })
+        // },
+        // renderSizeSlider: function (sliderContainer, slider) {
+        //     if (this.defaultsOptions.windowWidth < 1200 && this.defaultsOptions.windowWidth >= 768) {
+        //         const sliderWrapperWidth = sliderContainer.find('.swiper-wrapper').innerWidth(),
+        //             deltaWidth = (this.defaultsOptions.windowWidth - sliderWrapperWidth) / 2
+        //         // console.log(deltaWidth)
+
+        //         sliderContainer.css({
+        //             'margin-left': '-' + deltaWidth + 'px',
+        //             'margin-right': '-' + deltaWidth + 'px',
+        //             'padding-right': deltaWidth + 'px',
+        //             'padding-left': deltaWidth + 'px'
+        //         })
+        //         // console.log(slider)
+        //         setTimeout(function () {
+        //             slider.update()
+        //         }, 1);
+        //         // 
+        //     }
+        //     else {
+        //         sliderContainer.attr('style', '')
+        //     }
+        // },
+        init: function (options) {
+            const $thisObj = this
+            var options = $.extend(this.defaultsOptions, options)
+            //console.log(options)
+            const sliderContainer = options.sliderWrapper.children('.favourite-slider'),
+                sliderBtnPrev = options.sliderWrapper.children('.swiper-control').find('.prev'),
+                sliderBtnNext = options.sliderWrapper.children('.swiper-control').find('.next')
+            let swiper = new Swiper(sliderContainer, {
+                slidesPerView: options.slidesVisible,
+                slidesPerGroup: options.slidesGroup,
+                grabCursor: true,
+                spaceBetween: options.SpaceBetweenPx,
+                watchOverflow: true,
+                watchSlidesVisibility: true,
+                touchReleaseOnEdges: true,
+                navigation: {
+                    nextEl: sliderBtnNext,
+                    prevEl: sliderBtnPrev,
+                    disabledClass: "disabled",
+                },
+                // on: {
+                //     init: function () {
+                //         // console.log(this)
+                //         $thisObj.renderSizeSlides(sliderContainer)
+                //         $thisObj.renderSizeSlider(sliderContainer, this)
+                //     },
+                //     resize: function () {
+                //         $thisObj.renderSizeSlides(sliderContainer)
+                //         if ($thisObj.defaultsOptions.windowWidth != document.body.clientWidth) {
+                //             $thisObj.defaultsOptions.windowWidth = document.body.clientWidth
+                //             // console.log($thisObj.windowWidth)
+                //             $thisObj.renderSizeSlider(sliderContainer, this)
+                //         }
+                //     }
+                // },
+                breakpoints: {
+                    // when window width is >= 320px
+                    767: {
+                        slidesPerView: 1,
+                        spaceBetween: 15,
+                        //   spaceBetween: 20
+                    },
+                    // when window width is >= 480px
+                    1199: {
+                        slidesPerView: 2,
+                        spaceBetween: 30,
+                        // slidesPerGroup: 2
+                        //   spaceBetween: 30
+                    },
+                    // when window width is >= 640px
+                    /*  1200: {
+                         slidesPerView: 4,
+                         slidesPerGroup: options.countPerView,
+                         //   spaceBetween: 40
+                     } */
+                },
+            })
+            // this.events(sliderContainer, options.windowWidth)
+        },
+        // events: function (sliderContainer, windowWidth) {
+        //     $(window).on('resize', function () {
+
+        //     })
+        // }
+    }
+
+    if ($('.favourite-slider-wrapper').length) {
+        $.each($('.favourite-slider-wrapper'), function () {
+            InitSliderFavourite.init({
+                sliderWrapper: $(this)
+            })
+        })
+    }
+    //------------------------------------
 
 }) // finish doc ready
 

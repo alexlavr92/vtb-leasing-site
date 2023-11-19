@@ -7,6 +7,10 @@ html {
     font-size: $body-font-size;
 }
 
+.visually-hidden {
+    display: none;
+}
+
 body {
     background-color: $color-main;
     color: $color-third;
@@ -20,6 +24,18 @@ body {
     line-height: normal;
     margin: 0;
     overflow-x: hidden;
+    min-height: 100vh;
+    @include flex-column;
+
+    >header,
+    main,
+    footer {
+        width: 100%;
+    }
+
+    >main {
+        flex: 1;
+    }
 
     img,
     picture {
@@ -51,6 +67,13 @@ p {
     font-weight: normal;
     line-height: normal;
 }
+
+.list {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+
 
 section:not(.top-section) {
     padding: 120px 0;
@@ -337,6 +360,7 @@ h2,
             border: 1px solid $color-main;
             color: $color-main;
 
+            &.active,
             &:focus {
                 background: rgba($color-main, .05);
             }
@@ -352,9 +376,99 @@ h2,
             position: absolute;
             top: 100%;
             left: 0;
-            margin-top: 5px;
+            margin-top: 2px;
             font-size: .6rem;
             color: $invalid-color;
+        }
+    }
+}
+
+.default-label-checkbox {
+    color: $color-main;
+    font-size: .6rem !important;
+    position: relative;
+    padding-left: 45px;
+    @include pointer;
+
+    @media screen {
+        @media (max-width: 767px) {
+            font-size: .7rem !important;
+        }
+    }
+
+    &:before,
+    &:after {
+        content: '';
+        position: absolute;
+        transition: $transition;
+    }
+
+    &:before {
+        top: 2px;
+        left: 0;
+        width: 30px;
+        height: 30px;
+        border-radius: 4px;
+        border: 1px solid $color-main;
+
+        @media screen {
+            @media (max-width: 1199px) {
+                top: -2px;
+            }
+
+            @media (max-width: 767px) {
+                top: 0;
+            }
+        }
+
+    }
+
+    .invalid &:before {
+        border-color: $color-attention;
+    }
+
+    &:after {
+        width: 6px;
+        height: 14px;
+        border-right: 2px solid #002882;
+        border-bottom: 2px solid #002882;
+        left: 12px;
+        top: 7px;
+        transform: rotate(45deg);
+        opacity: 0;
+
+        @media screen {
+            @media (max-width: 1199px) {
+                top: 4px;
+            }
+        }
+    }
+
+    .default-input-checkbox:checked+&:before {
+        background: $color-main;
+    }
+
+    .default-input-checkbox:checked+&:after {
+        opacity: 1;
+    }
+
+    >a {
+        display: inline-block;
+        color: inherit;
+        border-bottom: 1px solid;
+
+        @media screen {
+            @media (min-width: 1200px) {
+                &:hover {
+                    border-color: transparent;
+                }
+            }
+
+            @media (max-width: 1199px) {
+                &:active {
+                    border-color: transparent;
+                }
+            }
         }
     }
 }
@@ -402,6 +516,7 @@ h2,
     bottom: auto;
     right: auto;
     margin: 0 7.5px;
+    z-index: 1;
     @include bg-style;
     transition: $transition;
     @include pointer;
@@ -646,6 +761,31 @@ h2,
     font-family: $font-book;
     font-size: .8rem;
     transition: $transition;
+
+    @media screen {
+        @media (max-width: 767px) {
+            font-size: 1rem;
+        }
+    }
+
+    &.link-blue {
+        color: $color-second-hover;
+        border-bottom: 1px solid;
+
+        @media screen {
+            @media (min-width: 1200px) {
+                &:hover {
+                    border-color: transparent;
+                }
+            }
+
+            @media (max-width: 1199px) {
+                &:active {
+                    border-color: transparent;
+                }
+            }
+        }
+    }
 }
 
 // End Link CSS
@@ -691,3 +831,85 @@ table {
 }
 
 //End Table CSS
+
+// Start Tooltip 
+.tootlip-wrapper {
+    position: relative;
+
+    .tooltip {
+        $allSize: 20;
+        width: $allSize + 0px;
+        height: $allSize + 0px;
+        @include text-center;
+        line-height: $allSize + 0px;
+        border-radius: 50%;
+        @include pointer;
+    }
+
+
+    &.tootlip-question {
+        .tooltip {
+            background: $color-second;
+            color: $color-main;
+            font-size: .7rem;
+            padding-right: 1px;
+
+            @media screen {
+                @media (max-width: 1199px) {
+                    font-size: .9rem;
+                }
+            }
+        }
+    }
+
+
+}
+
+.tooltip-content {
+    display: none;
+    position: absolute;
+
+    .tootlip-content-inner {
+        max-width: 280px;
+        padding: 10px 20px;
+        border-radius: 6px;
+        background: $color-main;
+        box-shadow: 0px 0px 20px 0px rgba(0, 98, 255, 0.20);
+        position: relative;
+
+    }
+
+    .tooltip-content-text {
+        color: $color-third;
+        font-size: .7rem;
+    }
+
+    &:after {
+        content: "";
+        position: absolute;
+        width: 0;
+        height: 0;
+        border-style: solid;
+        bottom: -10px;
+        border-width: 10px 15px 0 15px;
+        border-color: #ffffff transparent transparent transparent;
+        z-index: 1;
+    }
+
+    &:not(.tooltip-base--over-left):not(.tooltip-base--over-right):after {
+        left: 50%;
+        -webkit-transform: translateX(-50%);
+        -ms-transform: translateX(-50%);
+        transform: translateX(-50%);
+    }
+
+    &.tooltip-base--over-right:after {
+        right: 9px;
+    }
+
+    &.tooltip-base--over-left:after {
+        left: 9px;
+    }
+}
+
+// End Tooltip

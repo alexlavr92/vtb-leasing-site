@@ -1,0 +1,920 @@
+/*
+Name: 			car-card.css
+Written by: 	Lavrinenko Aleksandr
+Theme Version:	1.0
+*/
+
+// COMMON IMPORTS
+@import "config/imports";
+
+// HELPERS
+@import "base/helpers";
+
+// BASE
+@import "base/base";
+
+
+// header
+@import "base/header";
+
+
+
+
+
+// Start Card Top Section
+.card-top {
+    padding-top: 30px;
+
+    @media screen {
+        @media (max-width: 1199px) {
+            padding-top: 25px;
+        }
+
+        @media (max-width: 767px) {
+            padding-top: 0;
+        }
+    }
+}
+
+.card-top-wrapper {
+    align-items: center;
+
+    @media screen {
+        @media (max-width: 1199px) {
+            @include flex-column;
+        }
+    }
+}
+
+.card-slider-outer {
+    width: 59%;
+    padding: 0 40px;
+    position: relative;
+
+    @media screen {
+        @media (max-width: 1199px) {
+            width: 100%;
+            padding: 0 30px;
+        }
+
+        @media (max-width: 767px) {
+            width: 100%;
+            padding: 0 15px;
+        }
+    }
+
+    .swiper-button {
+        position: absolute;
+        top: 50%;
+        transform: translateY(-50%);
+        margin: 0;
+
+        @media screen {
+            @media (max-width: 767px) {
+                width: 20px;
+                height: 20px;
+                background-color: $color-main;
+                border-radius: 50%;
+                background-size: 60%;
+                // @include bg-style;
+            }
+        }
+
+        &.prev {
+            left: 0;
+            background-image: url(../media/icons/prev-black.svg);
+        }
+
+        &.next {
+            right: 0;
+            background-image: url(../media/icons/next-black.svg);
+        }
+    }
+}
+
+.card-slider-inner {
+    position: relative;
+
+    .item-labels-top {
+        z-index: 2;
+        position: absolute;
+        width: calc(100% - 30px);
+        left: 50%;
+        transform: translateX(-50%);
+        top: 10px;
+        justify-content: space-between;
+        align-items: center;
+
+        @media screen {
+            @media (max-width: 767px) {
+                position: relative;
+                left: auto;
+                transform: none;
+                width: auto;
+                margin: 0 -15px;
+            }
+        }
+
+        .view-count {
+            color: #C4C4C4;
+            font-size: .6rem;
+
+            @media screen {
+                @media (max-width: 767px) {
+                    font-size: .8rem;
+                }
+            }
+        }
+    }
+}
+
+.card-slider {
+    .swiper-slide {
+        width: 100%;
+        height: 368px;
+        @include bg-style;
+        background-size: 100%;
+
+        @media screen {
+            @media (max-width: 1199px) {
+                height: 48vw;
+                max-height: 360px;
+            }
+
+            @media (max-width: 767px) {
+                height: 52vw;
+                max-height: none;
+            }
+        }
+
+    }
+}
+
+.card-top-content {
+    flex: 1;
+    flex-shrink: 0;
+    margin-left: 38px;
+
+    @media screen {
+        @media (max-width: 1199px) {
+            margin: 0 auto;
+            // margin-left: 0;
+            margin-top: 20px;
+            max-width: 290px;
+        }
+    }
+
+    h1 {
+        font-size: 2rem;
+        padding-bottom: 10px;
+
+        @media screen {
+            @media (max-width: 1199px) {
+                font-size: 1.7rem;
+            }
+        }
+    }
+
+    .card-credit-text {
+        margin-top: 20px;
+        font-size: .8rem;
+        color: rgba($color-third, .4);
+
+        @media screen {
+            @media (max-width: 1199px) {
+                font-size: 1.1rem;
+            }
+        }
+    }
+
+    .btn-wrapper {
+        margin-top: 50px;
+    }
+}
+
+.card-price-tabs {
+    @include flex-column;
+
+    .price-tabs-switchers {
+        align-items: center;
+        padding: 3px;
+        border-radius: 50px;
+        background: #E2E5E9;
+        overflow: hidden;
+
+        @media screen {
+            @media (max-width: 767px) {
+                width: 100%;
+                gap: 5px;
+            }
+        }
+
+        .price-tabs-switcher {
+            padding: 8px 10px;
+            border-radius: 50px;
+            color: rgba($color-third, .6);
+            font-size: .8rem;
+
+            // transition: $transition;
+            @media screen {
+                @media (max-width:767px) {
+                    flex: 1;
+                    @include text-center;
+                    font-size: 1.1rem;
+                    padding: 8px 6px;
+                }
+            }
+
+            &:not(.active) {
+                @media screen {
+                    @media (min-width: 1200px) {
+                        &:hover {
+                            color: $color-third;
+                        }
+
+                    }
+                }
+            }
+
+            &.active {
+                background: $color-main;
+                color: $color-third;
+            }
+        }
+    }
+
+    .price-tabs-content {
+        margin-top: 30px;
+
+        @media screen {
+            @media (max-width: 767px) {
+                margin-top: 15px;
+                width: 100%;
+            }
+        }
+    }
+
+    .price-tab-mileage {
+        font-size: .8rem;
+
+        @media screen {
+            @media (max-width: 767px) {
+                font-size: 1.1rem;
+            }
+        }
+    }
+
+    .price-tab-prices {
+        margin-top: 20px;
+        align-items: center;
+
+        .price-tab-prices--current {
+            font-family: $font-semibold;
+            color: $color-second;
+            font-size: 1.3rem;
+
+            @media screen {
+                @media (max-width: 767px) {
+                    font-size: 1.5rem;
+                }
+            }
+        }
+
+        .price-tab-prices--old {
+            position: relative;
+            color: #A8A8A9;
+            font-size: 1rem;
+            margin-left: 10px;
+
+            @media screen {
+                @media (max-width: 767px) {
+                    font-size: 1.2rem;
+                }
+            }
+
+            &:before {
+                content: '';
+                position: absolute;
+                left: 0;
+                width: 100%;
+                height: 1px;
+                background: #A8A8A9;
+                top: 13px;
+            }
+        }
+
+        .tootlip-wrapper {
+            margin-left: 10px;
+        }
+    }
+}
+
+// End Card Top Section
+
+// Start Card Descripts Tabs
+section.card-descript {
+    padding-bottom: 0;
+}
+
+.card-descript-switchers {
+    align-items: center;
+
+    .card-descript-switcher {
+        padding: 17px 60px;
+        border-top-right-radius: 6px;
+        border-top-left-radius: 6px;
+        font-family: $font-medium;
+        font-size: 1rem;
+        color: rgba($color-second, .4);
+
+        @media screen {
+            @media (max-width: 767px) {
+                padding: 10px 15px;
+                font-size: 1.2rem;
+
+                &>span {
+                    display: none;
+                }
+            }
+        }
+
+        &.active {
+            background: $color-gray;
+            color: $color-second;
+        }
+
+        @media screen {
+            @media (min-width: 1200px) {
+                &:not(.active):hover {
+                    color: $color-second;
+                }
+            }
+
+            @media (max-width: 1199px) {
+                &:not(.active):active {
+                    color: $color-second;
+                }
+            }
+        }
+
+    }
+}
+
+.card-descript-contents {
+    background: $color-gray;
+}
+
+.card-descript-content {
+    padding: 50px 0;
+    position: relative;
+
+    &.animate-height {
+        .btn-wrapper {
+            position: absolute;
+            bottom: 20px;
+            left: 0;
+            z-index: 1;
+
+            @media screen {
+                @media (max-width: 767px) {
+                    @include text-center;
+                    width: 100%;
+                }
+            }
+        }
+
+        &:after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            width: 100%;
+            left: 0;
+            height: 180px;
+            background: linear-gradient(0deg, #F3F4F8 31.33%, rgba(243, 244, 248, 0.00) 100%);
+            transition: $transition;
+        }
+
+        &.open:after {
+            opacity: 0;
+            height: 0;
+        }
+    }
+
+    .content-inner {
+        justify-content: space-between;
+
+        @media screen {
+            @media (max-width: 767px) {
+                @include flex-column;
+                justify-content: flex-start;
+                align-items: flex-start;
+                gap: 40px;
+            }
+        }
+    }
+
+
+    &:not(.active) {
+        display: none;
+    }
+
+    h2 {
+        font-family: $font-medium;
+        font-size: 1.5rem;
+        padding-bottom: 30px;
+        width: 100%;
+    }
+
+}
+
+.card-descript-include {
+    @include flex-column;
+    gap: 25px;
+
+    @media screen {
+        @media (max-width: 1199px) {
+            gap: 10px;
+        }
+    }
+
+    li:not(.li-blue) {
+        position: relative;
+        padding-left: 25px;
+        color: $color-third;
+        font-family: $font-medium;
+        font-size: .9rem;
+
+        @media screen {
+            @media (max-width: 1199px) {
+                font-size: .8rem;
+            }
+
+            @media (max-width: 767px) {
+                font-size: 1rem;
+            }
+        }
+
+
+        &:before {
+            content: '';
+            position: absolute;
+            top: 2px;
+            left: 0;
+            width: 20px;
+            height: 20px;
+            background-image: url(../media/icons/ok.svg);
+            @include bg-style;
+            background-size: 100%;
+
+            @media screen {
+                @media (max-width: 1199px) {
+                    top: 0;
+                }
+            }
+        }
+    }
+
+    li.li-blue {
+        padding: 5px 10px;
+        border-radius: 25px;
+        background: $color-second;
+        color: $color-main;
+        font-family: $font-medium;
+        font-size: .9rem;
+
+        @media screen {
+            @media (max-width: 1199px) {
+                font-size: .8rem;
+            }
+
+            @media (max-width: 767px) {
+                font-size: 1.1rem;
+            }
+        }
+
+        &:before {
+            content: '';
+            position: relative;
+            width: 30px;
+            margin-right: 5px;
+            height: 30px;
+            display: inline-block;
+            vertical-align: middle;
+            background-image: url(../media/icons/ok-white.svg);
+            @include bg-style;
+            background-size: 100%;
+
+            @media screen {
+                @media (max-width: 1199px) {
+                    width: 20px;
+                    // margin-right: 5px;
+                    height: 20px;
+                }
+            }
+        }
+    }
+}
+
+.card-descript-values {
+    column-gap: 100px;
+    row-gap: 35px;
+    min-width: 0;
+    flex: 1;
+    flex-shrink: 1;
+    justify-content: flex-end;
+    align-items: flex-start;
+
+    @media screen {
+        @media (max-width: 1199px) {
+            gap: 15px;
+        }
+
+        @media (max-width: 767px) {
+            @include flex-column;
+            align-items: flex-start;
+            justify-content: flex-start;
+
+        }
+    }
+
+
+    li {
+        width: 250px;
+        position: relative;
+        padding-left: 60px;
+        font-family: $font-semibold;
+        font-size: 1rem;
+        // white-space: nowrap;
+        // text-overflow: ellipsis;
+        // overflow: hidden;
+
+        @media screen {
+            @media (max-width: 1199px) {
+                padding-left: 30px;
+                width: 145px;
+                font-size: .9rem;
+            }
+
+            @media (max-width: 767px) {
+                padding-left: 50px;
+                width: 100%;
+                font-size: 1.1rem;
+            }
+        }
+
+        &:before {
+            content: attr(data-before);
+            position: relative;
+            font-family: $font-book;
+            font-size: .7rem;
+            display: block;
+            color: rgba($color-third, .4);
+
+            @media screen {
+                @media (max-width: 1199px) {
+                    font-size: .7rem;
+                }
+
+                @media (max-width: 767px) {
+                    font-size: 1rem;
+                    padding-bottom: 3px;
+                }
+            }
+        }
+
+        .img-wrapper {
+            width: 40px;
+            position: absolute;
+            left: 0;
+            top: 0;
+
+            @media screen {
+                @media (max-width: 1199px) {
+                    width: 20px;
+                    top: 50%;
+                    transform: translateY(-50%);
+                }
+
+                @media (max-width: 767px) {
+                    width: 30px;
+                    top: 50%;
+                    transform: translateY(-50%);
+                }
+            }
+        }
+    }
+}
+
+.card-descript-items {
+    column-gap: 24px;
+    position: relative;
+    // height: 300px;
+
+    @media screen {
+        @media (max-width: 767px) {
+            @include flex-column;
+            gap: 30px;
+        }
+    }
+
+    &.hide {
+        overflow: hidden;
+    }
+}
+
+.card-descript-item {
+    flex: 1;
+    font-size: .9rem;
+
+
+    .title {
+        padding-bottom: 20px;
+
+        @media screen {
+            @media (max-width: 1199px) {
+                font-size: .9rem;
+            }
+
+            @media (max-width: 767px) {
+                font-size: 1rem;
+            }
+        }
+    }
+
+    li {
+        position: relative;
+        padding-left: 15px;
+
+        @media screen {
+            @media (max-width: 1199px) {
+                font-size: .9rem;
+            }
+
+            @media (max-width: 767px) {
+                font-size: 1rem;
+            }
+        }
+
+        &:before {
+            content: '';
+            position: absolute;
+            width: 5px;
+            height: 5px;
+            border-radius: 50%;
+            background: $color-second;
+            left: 0;
+            top: 10px;
+        }
+
+    }
+
+    li+li {
+        margin-top: 10px;
+    }
+}
+
+// End Card Descripts Tabs
+
+// Start All Inclusive
+@import "components/all-inclusive";
+
+.all-inclusive-wrapper {
+    h2 {
+        padding-bottom: 60px;
+
+        @media screen {
+            @media (max-width: 767px) {
+                padding-bottom: 30px;
+            }
+        }
+    }
+}
+
+.all-inclusive-slide .text {
+    color: rgba($color-third, .6);
+}
+
+// End All Inclusive
+
+// Start Card Video
+.card-video-wrapper {
+    h2 {
+        text-transform: uppercase;
+        font-size: 2rem;
+        letter-spacing: 0.8px;
+        padding-bottom: 30px;
+
+        @media screen {
+            @media (max-width: 767px) {
+                font-size: 1.5rem;
+                padding-bottom: 20px;
+            }
+        }
+    }
+
+    .subtitle {
+        font-size: .9rem;
+        max-width: 970px;
+        margin: 0 auto;
+
+        @media screen {
+            @media (max-width: 1199px) {
+                font-size: 1rem;
+            }
+        }
+    }
+
+    .card-video-elem {
+        margin-top: 50px;
+        border-radius: 6px;
+        overflow: hidden;
+        height: 580px;
+        position: relative;
+
+        @media screen {
+            @media (max-width: 1199px) {
+                height: 45vw;
+            }
+
+            @media (max-width: 1199px) {
+                margin-top: 30px;
+                overflow: initial;
+            }
+        }
+
+        .btn {
+            position: absolute;
+            bottom: 100px;
+            left: 50%;
+            transform: translateX(-50%);
+            z-index: 1;
+
+            @media screen {
+                @media (max-width: 1199px) {
+                    bottom: 5vw;
+                }
+
+                @media (max-width: 767px) {
+                    // max-width: 290px;
+                    // width: 90%;
+                    bottom: auto;
+                    top: 100%;
+                    margin-top: 5px;
+                }
+            }
+
+
+            &:not(.show) {
+                display: none;
+            }
+        }
+    }
+
+}
+
+.video-elem {
+    .video-js {
+        width: 100%;
+        height: 100%;
+    }
+
+
+    .video-js.video1-dimensions {
+        @media screen {
+            @media (max-width: 767px) {
+                border-radius: 6px;
+                overflow: hidden;
+            }
+        }
+    }
+
+    .vjs-big-play-button {
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        border-radius: 50%;
+        width: 3rem;
+        height: 3rem;
+
+        @media screen {
+            @media (max-width: 767px) {
+                width: 2rem;
+                height: 2rem;
+                font-size: 1.5rem;
+            }
+        }
+
+        .vjs-icon-placeholder:before {
+            line-height: 3rem;
+
+            @media screen {
+                @media (max-width: 767px) {
+                    line-height: 2rem;
+                }
+            }
+        }
+    }
+
+    .vjs-poster,
+    .vjs-poster:focus,
+    .vjs-poster:active {
+        @include bg-style;
+        background-size: 100%;
+        background-position: center;
+        // background: initial;
+    }
+}
+
+// End Card Video
+
+// Start Form CSS
+@import "components/inline-form";
+
+// Start Modal CSS
+@import "components/modal";
+
+
+// Start Favourite Slider Cars
+// Catalog
+@import "components/catalog";
+
+.favourite-cars-wrapper {
+    h2 {
+        max-width: 85%;
+
+        @media screen {
+            @media (max-width: 767px) {
+                max-width: none;
+            }
+        }
+    }
+}
+
+.favourite-slider-wrapper {
+    position: relative;
+
+    @media screen {
+        @media (max-width: 767px) {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 20px;
+        }
+    }
+
+    .swiper-control {
+        position: absolute;
+        right: 0;
+        top: -80px;
+        gap: 40px;
+
+        @media screen {
+            @media (max-width: 1199px) {
+                top: -60px;
+                gap: 20px;
+            }
+
+            @media (max-width: 767px) {
+                position: relative;
+                order: -1;
+                top: auto;
+                right: auto;
+                width: 100%;
+                justify-content: flex-end;
+            }
+        }
+
+        .swiper-button.prev {
+            background-image: url(../media/icons/prev-black.svg);
+        }
+
+        .swiper-button.next {
+            background-image: url(../media/icons/next-black.svg);
+        }
+    }
+}
+
+.favourite-slider {
+    margin: -20px;
+    padding: 20px;
+
+    @media screen {
+        @media (max-width: 767px) {
+            margin: -15px;
+            padding: 15px;
+        }
+    }
+
+    .swiper-wrapper {
+        box-sizing: $box-border;
+    }
+
+    .catalog-item {
+        margin: 0;
+        width: 100%;
+    }
+}
+
+// End Favourite Slider Cars
+
+// footer
+@import "base/footer";
