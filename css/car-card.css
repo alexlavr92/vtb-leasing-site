@@ -2005,6 +2005,11 @@ header.sticky {
   background: #A8A8A9;
   top: 13px;
 }
+@media screen and (max-width: 1199px) {
+  .card-price-tabs .price-tab-prices .price-tab-prices--old:before {
+    top: 12px;
+  }
+}
 .card-price-tabs .price-tab-prices .tootlip-wrapper {
   margin-left: 10px;
 }

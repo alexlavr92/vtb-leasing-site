@@ -313,6 +313,12 @@ Theme Version:	1.0
                 height: 1px;
                 background: #A8A8A9;
                 top: 13px;
+
+                @media screen {
+                    @media (max-width: 1199px) {
+                        top: 12px;
+                    }
+                }
             }
         }
 
