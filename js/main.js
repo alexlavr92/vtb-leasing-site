@@ -2,6 +2,7 @@
 
 let docWidth = document.body.clientWidth
 
+// Функционал блокировки скрола при открытии модального окна
 const BlockScroll = {
     open: function () {
         setTimeout(function () {
@@ -42,12 +43,15 @@ const BlockScroll = {
         }
     }
 }
+// ------------------------------------
 
 jQuery(document).ready(function ($) {
 
+    // Инициализация плагина анимации
     AOS.init({
         once: true,
     });
+    // ------------------------------------
 
     // Инициализация слайдера "Больше возможностей"
     const InitSliderMore = {
@@ -566,7 +570,7 @@ jQuery(document).ready(function ($) {
                 InvalidCount++
             }
         })
-        console.log(InvalidCount)
+        // console.log(InvalidCount)
         if (InvalidCount == 0) {
             const _formWrapper = _form.closest('.request-inline-wrapper'),
                 _formWrapperHeight = _formWrapper.innerHeight(),
@@ -606,8 +610,9 @@ jQuery(document).ready(function ($) {
             ? _field.addClass('active')
             : _field.removeClass('active')
     })
+    //----------------------//
 
-
+    // Инициализация модальных окон
     const ModalElem = {
         defaultsOptions: {
             modalHash: '',
@@ -629,7 +634,7 @@ jQuery(document).ready(function ($) {
             this.events(ThisHash, options.callElem)
         },
         events: function (modalElem, callElem) {
-            console.log(modalElem, callElem)
+            // console.log(modalElem, callElem)
             $('body').on('modal:before-open', modalElem, function (event, modal) {
                 modal.$blocker.addClass('current-custom')
                 modal.$elm.find('.request-inline-wrapper').css('display', '')
@@ -924,7 +929,7 @@ jQuery(document).ready(function ($) {
     //----------------------//
 
 
-
+    // Инициализация всплывающих подсказок
     const Tooltip = {
         defaultsOptions: {
             tooltipElems: $('.tooltip')
@@ -937,7 +942,7 @@ jQuery(document).ready(function ($) {
             const TooltipState = {
                 docWidth: document.body.clientWidth,
                 open: function (tooltipElem) {
-                    console.log(tooltipElem)
+                    // console.log(tooltipElem)
                     // const docWidth = document.body.clientWidth
                     if (!tooltipElem.hasClass("tooltip-open")) {
                         $(".tooltip_content.tooltip-base").remove();
@@ -946,7 +951,7 @@ jQuery(document).ready(function ($) {
                         let thistooltip = tooltipElem.next(".tooltip-content"),
                             thisTooltipClone = thistooltip.clone();
                         $(thisTooltipClone).appendTo("body");
-                        console.log($(thisTooltipClone).innerHeight())
+                        // console.log($(thisTooltipClone).innerHeight())
                         if (this.docWidth >= 1200) {
                             $(thisTooltipClone).css({
                                 position: "absolute",
@@ -961,7 +966,7 @@ jQuery(document).ready(function ($) {
                                 $(thisTooltipClone).css("z-index", "4"); // новое 14.06.2022
                             }
                             if (tooltipElem.width() < $(thisTooltipClone).width()) {
-                                console.log('ок')
+                                // console.log('ок')
                                 $(thisTooltipClone).css("left", tooltipElem.offset().left - ($(thisTooltipClone).innerWidth() - tooltipElem.innerWidth()) / 2);
                             } else if (tooltipElem.width() >= $(thisTooltipClone).width()) {
                                 $(thisTooltipClone).css("left", tooltipElem.offset().left + (tooltipElem.innerWidth() - $(thisTooltipClone).innerWidth()) / 2);
@@ -1051,9 +1056,10 @@ jQuery(document).ready(function ($) {
     if ($('.tooltip').length) {
         Tooltip.init()
     }
+    //----------------------//
 
 
-
+    // Инициализация табов на странице карточки автомобиля
     const TabsCardInit = {
         defaultsOptions: {
             tabSwitcher: 'card-descript-switcher',
@@ -1104,7 +1110,9 @@ jQuery(document).ready(function ($) {
     if ($('.card-descript-tabs').length) {
         TabsCardInit.init()
     }
+    //----------------------//
 
+    // Конструктор анимации раскрывающегося списка в табе в карточке автомобиля
     function AnimateHeightDescriptItems(options) {
         this.options = options
         this.defaultsOptions = {
@@ -1167,7 +1175,7 @@ jQuery(document).ready(function ($) {
         }
         this.init(this.options)
     }
-
+    //----------------------//
 
     // Инициализация видеоплеера //
     const InitVideo = function (videoOptions) {
@@ -1226,7 +1234,6 @@ jQuery(document).ready(function ($) {
         this.player = this.init(videoOptions)
     }
 
-
     if ($('.video-js').length) {
         $.each($('.video-js'), function () {
             const $this = $(this),
@@ -1241,7 +1248,7 @@ jQuery(document).ready(function ($) {
     }
     //----------------------//
 
-    // Инициализация слайдера "Больше возможностей"
+    // Инициализация слайдера "Вам могут понравиться"
     const InitSliderFavourite = {
         defaultsOptions: {
             slidesVisible: 3,
