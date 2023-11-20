@@ -112,6 +112,7 @@ jQuery(document).ready(function ($) {
                     // when window width is >= 480px
                     1199: {
                         slidesPerView: 2,
+                        spaceBetween: 40,
                         // slidesPerGroup: 2
                         //   spaceBetween: 30
                     },
@@ -124,12 +125,17 @@ jQuery(document).ready(function ($) {
                 },
                 on: {
                     init: function () {
-                        $thisObj.renderSizeSlides(sliderContainer)
-                    },
-                    resize: function () {
-                        $thisObj.renderSizeSlides(sliderContainer)
                         const $this = this
                         setTimeout(function () {
+                            $thisObj.renderSizeSlides(sliderContainer)
+                            // console.log('update')
+                            $this.update()
+                        }, 1);
+                    },
+                    resize: function () {
+                        const $this = this
+                        setTimeout(function () {
+                            $thisObj.renderSizeSlides(sliderContainer)
                             // console.log('update')
                             $this.update()
                         }, 1);
@@ -350,7 +356,7 @@ jQuery(document).ready(function ($) {
     }
     //----------------------//
 
-    // Инициализация слайдера "Больше возможностей"
+    // Инициализация слайдера "Всё включено"
     const InitSliderInclusive = {
         defaultsOptions: {
             slidesVisible: 3,
@@ -385,9 +391,6 @@ jQuery(document).ready(function ($) {
                     'padding-left': deltaWidth + 'px'
                 })
                 // console.log(slider)
-                setTimeout(function () {
-                    slider.update()
-                }, 1);
                 // 
             }
             else {
@@ -416,17 +419,28 @@ jQuery(document).ready(function ($) {
                 },
                 on: {
                     init: function () {
+                        const $this = this
+                        setTimeout(function () {
+                            $thisObj.renderSizeSlides(sliderContainer)
+                            $thisObj.renderSizeSlider(sliderContainer, this)
+                            // console.log('update')
+                            $this.update()
+                        }, 1);
                         // console.log(this)
-                        $thisObj.renderSizeSlides(sliderContainer)
-                        $thisObj.renderSizeSlider(sliderContainer, this)
+
                     },
                     resize: function () {
-                        $thisObj.renderSizeSlides(sliderContainer)
-                        if ($thisObj.defaultsOptions.windowWidth != document.body.clientWidth) {
-                            $thisObj.defaultsOptions.windowWidth = document.body.clientWidth
-                            // console.log($thisObj.windowWidth)
-                            $thisObj.renderSizeSlider(sliderContainer, this)
-                        }
+                        const $this = this
+                        setTimeout(function () {
+                            $thisObj.renderSizeSlides(sliderContainer)
+                            if ($thisObj.defaultsOptions.windowWidth != document.body.clientWidth) {
+                                $thisObj.defaultsOptions.windowWidth = document.body.clientWidth
+                                // console.log($thisObj.windowWidth)
+                                $thisObj.renderSizeSlider(sliderContainer, this)
+                            }
+                            // console.log('update')
+                            $this.update()
+                        }, 1);
                     }
                 },
                 breakpoints: {
@@ -877,14 +891,14 @@ jQuery(document).ready(function ($) {
                         const $this = this
                         setTimeout(function () {
                             $this.update()
-                        }, 10);
+                        }, 1);
                     },
 
                     resize: function () {
                         const $this = this
                         setTimeout(function () {
                             $this.update()
-                        }, 10);
+                        }, 1);
                     }
                 },
 
@@ -1098,13 +1112,7 @@ jQuery(document).ready(function ($) {
                                 itemsHeight: $(this).find('.card-descript-items').attr('data-height')
                             })
                         }
-                    },
-                    complete: function () {
-
                     }
-                    // complete: function () {
-
-                    // }
                 })
             })
         }
@@ -1258,42 +1266,6 @@ jQuery(document).ready(function ($) {
             SpaceBetweenPx: 32,
             // windowWidth: document.body.clientWidth
         },
-        // renderSizeSlides: function (sliderContainer) {
-        //     const slides = sliderContainer.find('.all-inclusive-slide')
-        //     slides.css({ 'min-height': '' })
-        //     let MaxItemHeight = 0
-
-        //     $.each(slides, function () {
-        //         if ($(this).innerHeight() >= MaxItemHeight) {
-        //             // console.log($(this).innerHeight())
-        //             MaxItemHeight = $(this).innerHeight()
-        //         }
-        //     })
-        //     // console.log(MaxItemHeight)
-        //     slides.css({ 'min-height': MaxItemHeight + 'px' })
-        // },
-        // renderSizeSlider: function (sliderContainer, slider) {
-        //     if (this.defaultsOptions.windowWidth < 1200 && this.defaultsOptions.windowWidth >= 768) {
-        //         const sliderWrapperWidth = sliderContainer.find('.swiper-wrapper').innerWidth(),
-        //             deltaWidth = (this.defaultsOptions.windowWidth - sliderWrapperWidth) / 2
-        //         // console.log(deltaWidth)
-
-        //         sliderContainer.css({
-        //             'margin-left': '-' + deltaWidth + 'px',
-        //             'margin-right': '-' + deltaWidth + 'px',
-        //             'padding-right': deltaWidth + 'px',
-        //             'padding-left': deltaWidth + 'px'
-        //         })
-        //         // console.log(slider)
-        //         setTimeout(function () {
-        //             slider.update()
-        //         }, 1);
-        //         // 
-        //     }
-        //     else {
-        //         sliderContainer.attr('style', '')
-        //     }
-        // },
         init: function (options) {
             const $thisObj = this
             var options = $.extend(this.defaultsOptions, options)
@@ -1314,50 +1286,37 @@ jQuery(document).ready(function ($) {
                     prevEl: sliderBtnPrev,
                     disabledClass: "disabled",
                 },
-                // on: {
-                //     init: function () {
-                //         // console.log(this)
-                //         $thisObj.renderSizeSlides(sliderContainer)
-                //         $thisObj.renderSizeSlider(sliderContainer, this)
-                //     },
-                //     resize: function () {
-                //         $thisObj.renderSizeSlides(sliderContainer)
-                //         if ($thisObj.defaultsOptions.windowWidth != document.body.clientWidth) {
-                //             $thisObj.defaultsOptions.windowWidth = document.body.clientWidth
-                //             // console.log($thisObj.windowWidth)
-                //             $thisObj.renderSizeSlider(sliderContainer, this)
-                //         }
-                //     }
-                // },
+                on: {
+                    init: function () {
+                        const $this = this
+                        setTimeout(function () {
+                            $this.update()
+                        }, 1);
+                    },
+                    resize: function () {
+                        const $this = this
+                        setTimeout(function () {
+                            $this.update()
+                        }, 1);
+                    }
+                },
                 breakpoints: {
                     // when window width is >= 320px
                     767: {
                         slidesPerView: 1,
                         spaceBetween: 15,
-                        //   spaceBetween: 20
                     },
                     // when window width is >= 480px
                     1199: {
                         slidesPerView: 2,
                         spaceBetween: 30,
-                        // slidesPerGroup: 2
-                        //   spaceBetween: 30
                     },
-                    // when window width is >= 640px
-                    /*  1200: {
-                         slidesPerView: 4,
-                         slidesPerGroup: options.countPerView,
-                         //   spaceBetween: 40
-                     } */
+
                 },
             })
-            // this.events(sliderContainer, options.windowWidth)
-        },
-        // events: function (sliderContainer, windowWidth) {
-        //     $(window).on('resize', function () {
 
-        //     })
-        // }
+        },
+
     }
 
     if ($('.favourite-slider-wrapper').length) {
@@ -1370,7 +1329,7 @@ jQuery(document).ready(function ($) {
     //------------------------------------
 
 
-    // Init Map
+    // Инициализация карты
     if ($('#my-map').length) {
         ymaps.ready(initYandexMap);
         function initYandexMap() {
