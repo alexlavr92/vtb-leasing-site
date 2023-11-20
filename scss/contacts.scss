@@ -1,0 +1,174 @@
+/*
+Name: 			car-card.css
+Written by: 	Lavrinenko Aleksandr
+Theme Version:	1.0
+*/
+
+// COMMON IMPORTS
+@import "config/imports";
+
+// HELPERS
+@import "base/helpers";
+
+// BASE
+@import "base/base";
+
+
+// header
+@import "base/header";
+
+// Start Form CSS
+@import "components/inline-form";
+
+// Start Modal CSS
+@import "components/modal";
+
+
+// footer
+@import "base/footer";
+
+
+// Start Contacts
+section.contacts {
+    padding-top: 35px;
+    padding-bottom: 120px;
+
+    @media screen {
+        @media (max-width: 1199px) {
+            padding-top: 15px;
+            padding-bottom: 100px;
+        }
+    }
+}
+
+.contacts-wrapper {
+    align-items: center;
+
+    @media screen {
+        @media (max-width: 1199px) {
+            @include flex-column;
+            align-items: flex-start;
+            justify-content: flex-start;
+            gap: 50px;
+        }
+    }
+}
+
+.contact-map {
+    border-radius: 6px;
+    overflow: hidden;
+    width: 700px;
+    height: 400px;
+
+    @media screen {
+        @media (max-width: 1199px) {
+            width: 100%;
+            height: 50vw;
+        }
+
+        @media (max-width: 767px) {
+            height: 60vw;
+        }
+    }
+}
+
+.contacts-content {
+    flex: 1;
+    flex-shrink: 0;
+    min-width: 0;
+    margin-right: 50px;
+    @include flex-column;
+    gap: 10px;
+
+    @media screen {
+        @media (max-width: 1199px) {
+            gap: 20px;
+        }
+    }
+
+    h1 {
+        font-family: $font-medium;
+        font-size: 2rem;
+        padding-bottom: 40px;
+
+        @media screen {
+            @media (max-width: 1199px) {
+                font-size: 1.5rem;
+                padding-bottom: 10px;
+            }
+        }
+    }
+
+    .with-icon {
+        position: relative;
+        padding-left: 30px;
+        font-size: .9rem;
+        color: inherit;
+
+        @media screen {
+            @media (max-width: 1199px) {
+                font-size: 1.1rem;
+            }
+        }
+
+        &:before {
+            content: '';
+            position: absolute;
+            width: 20px;
+            height: 20px;
+            left: 0;
+            top: 1px;
+            @include bg-style;
+        }
+
+        &.phone:before {
+            background-image: url(../media/icons/phone-contacts.png);
+        }
+
+        &.clock {
+            >span {
+                font-family: $font-demibold;
+            }
+
+            &:before {
+                background-image: url(../media/icons/clock-contacts.png);
+            }
+        }
+
+        &.location:before {
+            background-image: url(../media/icons/location-contacts.png);
+        }
+    }
+
+    .contacts-email {
+        margin: 20px 0;
+        padding-left: 30px;
+
+        @media screen {
+            @media (max-width: 767px) {
+                margin: 10px 0;
+            }
+        }
+
+        .title {
+            font-size: .7rem;
+            color: rgba($color-third, .4);
+
+            @media screen {
+                @media (max-width: 1199px) {
+                    font-size: .9rem;
+                }
+            }
+        }
+
+        .link {
+            @media screen {
+                @media (max-width: 1199px) {
+                    font-size: 1.1rem;
+                }
+            }
+        }
+    }
+}
+
+//End Contacts

@@ -1,0 +1,241 @@
+<!DOCTYPE html>
+<html lang="ru">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="Content-Type" content="text/html" charset="utf-8">
+    <meta name="viewport"
+        content="minimum-scale=1.0, width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta name="HandheldFriendly" content="true">
+    <meta name="MobileOptimized" content="320">
+    <meta name="format-detection" content="telephone=no">
+    <meta http-equiv="Content-Type" content="text/html" charset="utf-8">
+
+
+    <!-- <meta property="og:title" content="Chery Tiggo 4">
+    <meta property="og:image" content="./og-image.jpg"> -->
+    <!-- <meta property="og:image:width" content="600" />
+    <meta property="og:image:height" content="315" /> -->
+    <!-- <meta property="og:description"
+        content="Стоимость подписки на автомобиль Chery Tiggo 4 в ВТБ Автоподписка. Характеристики авто. В подписку включено: ТО, ОСАГО + КАСКО, замена шин, техподдержка 24/7. ">
+    <meta property="og:url" content="/">
+    <meta property="og:type" content="website"> -->
+    <!-- <meta property="og:site_name" content="Space Pets"> -->
+    <!-- <meta name="keywords" content=""> -->
+    <meta name="description" content="Контакты - ВТБ Автоподписка">
+    <title>Контакты - ВТБ Автоподписка</title>
+    <link rel="icon" href="./favicon.ico" type="image/x-icon">
+    <!-- Modal CSS-->
+    <link rel="stylesheet" type="text/css" href="./css/plugins/jquery.modal.min.css">
+    <!-- AOS CSS-->
+    <link rel="stylesheet" type="text/css" href="./css/plugins/aos.css">
+    <!-- Style CSS-->
+    <link rel="stylesheet" type="text/css" href="./css/contacts.css">
+
+    <script src="https://api-maps.yandex.ru/2.1/?apikey=e61bb5aa-3f0e-4800-a46b-de9937699fc2&lang=ru_RU"
+        type="text/javascript">
+        </script>
+</head>
+
+<body ontouchstart="" class="flex-block">
+    <header id="header">
+        <div class="new-container">
+            <div class="header flex-block">
+                <a href="/" class="header-logo">
+                    <img src="./media/logo-header.png" alt="">
+                </a>
+                <nav class="header-nav flex-block">
+                    <a href="#service">О подписке</a>
+                    <a href="#conditions">Условия</a>
+                    <a href="#catalog">Каталог</a>
+                    <a href="#request-inline">Консультация</a>
+                    <a href="#faq">Вопросы и ответы</a>
+                    <a href="/contacts/">Контакты</a>
+                </nav>
+                <div class="header-phone flex-block">
+                    <a href="tel: 8 (800) 700-50-16">8 (800) 700-50-16</a>
+                    <span>мы на связи с 9.00 до 21.00</span>
+                </div>
+                <div class="header-mob flex-block">
+                    <a href="javascript: void(0)" class="mob-switcher"><span></span></a>
+                    <div class="header-mob-wrapper">
+                        <div class="new-container">
+                            <div class="header-mob-inner flex-block">
+                                <div class="header-mob-top flex-block">
+                                    <a href="/" class="top-logo">
+                                        <img src="./media/logo-header-mob.png" alt="">
+                                    </a>
+                                    <a href="tel: 8 (800) 700-50-16" class="top-phone flex-block">
+                                        <!-- <img src="./media/icons/phone-white.png" alt=""> -->
+                                        <span>8 (800) 700-50-16</span>
+                                        <span>мы на связи с 9.00 до 21.00</span>
+                                    </a>
+                                    <a href="javascript: void(0)" class="top-close">
+                                        <img src="./media/icons/close-white.png" alt="">
+                                    </a>
+                                </div>
+                                <nav class="header-mob-nav flex-block"></nav>
+                                <a href="tel: 8 (800) 700-50-16" class="header-mob-phone flex-block">
+                                    <span>8 (800) 700-50-16</span>
+                                    <span>мы на связи с 9.00 до 21.00</span>
+                                </a>
+                                <a href="javascript: void(0)" class="btn btn-contur-white modal-open"
+                                    data-id="modal-form-request">Оставить заявку</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+    <main>
+        <section class="contacts top-section">
+            <div class="new-container">
+                <div class="contacts-wrapper flex-block">
+                    <div class="contacts-content flex-block" data-aos="fade-up" data-aos-delay="100"
+                        data-aos-duration="800">
+                        <h1 class="heading-black">Контакты</h1>
+                        <a href="tel: 8 (800) 700-50-16" class="with-icon phone">8 (800) 700-50-16</a>
+                        <div class="with-icon clock">Примем заявку <span>с&nbsp;09:00&nbsp;до&nbsp;21:00</span>,
+                            а&nbsp;наши&nbsp;менеджеры вернутся
+                            с&nbsp;предложением с&nbsp;09:00&nbsp;до&nbsp;18:00
+                        </div>
+                        <div class="contacts-email">
+                            <div class="title">Email</div>
+                            <a href="mailto: podpiska@uka.msk.ru" class="link link-blue">podpiska@uka.msk.ru</a>
+                        </div>
+                        <div class="with-icon location">г. Москва, 2-й Южнопортовый проезд, 27А стр.1
+                        </div>
+                    </div>
+
+                    <div class="contact-map" id="my-map" data-aos="fade-up" data-aos-delay="200"
+                        data-aos-duration="800">
+
+                    </div>
+                </div>
+            </div>
+        </section>
+        <section class="blue request-inline" id="request-inline">
+            <div class="img-wrapper">
+                <picture>
+                    <source media="(min-width: 1200px)" srcset="./media/img/request-inline-bottom.png">
+                    <source media="(min-width: 768px)" srcset="./media/img/request-inline-bottom-tablet.png">
+                    <img src="./media/img/request-inline-bottom-mob.png" alt="">
+                </picture>
+            </div>
+            <div class="new-container" data-aos="fade-up" data-aos-delay="100" data-aos-duration="800">
+                <div class="request-inline-wrapper">
+                    <div class="h2 heading-white">Нужна помощь с&#160;выбором?</div>
+                    <form action="" id="form-request-inline" class="form-request-inline flex-block">
+                        <div class="default-input-wrapper flex-block">
+                            <label for="input-name">Ваша фамилия и имя</label>
+                            <input type="text" id="input-name" name="input-name" placeholder="Введите фамилию и имя"
+                                class="default-input default-input-text default-input_contur-white">
+                        </div>
+                        <div class="default-input-wrapper flex-block">
+                            <label for="input-phone">Ваш телефон</label>
+                            <input type="tel" id="input-phone" name="input-phone"
+                                placeholder="+7   Введите 10 цифр номера"
+                                class="default-input default-input-phone default-input_contur-white" inputmode="tel">
+                        </div>
+                        <button type="submit" form="form-request-inline" class="btn btn-blue">Оставить заявку</button>
+                    </form>
+                    <div class="cont-text">Нажимая на кнопку "Отправить заявку" вы Соглашаетесь на обработку <a
+                            href="javascript: void(0)">персональных данных</a>,
+                        <a href="javascript: void(0)">Политика обработки персональных данных</a>
+                    </div>
+                </div>
+                <div class="request-inline-success flex-block">
+                    <div class="h2 heading-white">Благодарим за заявку,
+                        мы&#160;скоро свяжемся с&#160;вами!</div>
+                </div>
+            </div>
+        </section>
+    </main>
+    <footer>
+        <div class="new-container">
+            <div class="footer">
+                Сервис «Автоподписка» оказывает ООО «УКА» (ИНН 7702827041), далее по тексту – ООО «УКА». В стоимость
+                подписки входят услуги: страхование автомобиля, регистрация в ГИБДД, круглосуточная программа помощи на
+                дорогах, контроль и обработка штрафов за нарушения ПДД (оплата штрафов взимается с пользователя).
+                Договор аренды включает в себя техническое обслуживание и ремонтные работы в официальных дилерских
+                центрах марок, работы по сезонному шиномонтажу и хранению шин, дополнительный консьерж-сервис. Аванс по
+                договору подписки отсутствует, при оформлении вносится обеспечительный платеж, возвращаемый при
+                окончании договора. Допустимый пробег за время подписки на автомобиль по договору аренды – не более 20
+                000 км в год с возможностью продления.Обращаем ваше внимание, что вся информация, размещенная на сайте,
+                носит информационный характер и не является публичной офертой, определяемой положениями статьи 437
+                Гражданского кодекса Российской Федерации. ООО «УКА» оставляет за собой право в одностороннем порядке в
+                любое время без уведомления вносить изменения, удалять, исправлять, дополнять, либо иным способом
+                обновлять информацию об условиях программы. Конкретные условия договора будут определяться отдельно при
+                его заключении. Ни ООО «УКА», ни его сотрудники не несут ответственности за убытки, возникшие в
+                результате использования информации, содержащейся на сайте, в инвестиционных или в иных целях, а также
+                за прямые или косвенные убытки, понесенные в результате неисправностей или перерывов в работе
+                сайта.<br /><br />
+                Внешний вид автомобилей может отличаться от представленных на сайте.<br />
+                ООО «УКА» обрабатывает персональные данные на условиях <a href="javascript: void(0)"
+                    target="_blank">Политики обработки персональных данных в ООО
+                    «УКА»</a><br />
+                ООО «УКА» © Все права защищены.
+            </div>
+        </div>
+    </footer>
+
+    <a href="javascript: void(0)" class="top-btn">
+    </a>
+
+    <div class="modal modal-request" id="modal-form-request">
+        <div class="modal-wrapper">
+            <div class="blue requsest-inline">
+                <div class="img-wrapper">
+                    <picture>
+                        <!-- <source media="(min-width: 1200px)" srcset="./media/img/request-modal-img.png"> -->
+                        <source media="(min-width: 768px)" srcset="./media/img/request-modal-img.png">
+                        <img src="./media/img/catalog-request.jpg" alt="">
+                    </picture>
+                </div>
+                <div class="request-inline-wrapper">
+                    <div class="h2 heading-white">ОСТАВИТЬ ЗАЯВКУ НА КОНСУЛЬТАЦИЮ</div>
+                    <form action="" id="form-request-modal" class="form-request-inline flex-block">
+                        <div class="default-input-wrapper flex-block">
+                            <label for="input-name">Ваша фамилия и имя</label>
+                            <input type="text" id="input-name" name="input-name" placeholder="Введите фамилию и имя"
+                                class="default-input default-input-text default-input_contur-white">
+                        </div>
+                        <div class="default-input-wrapper flex-block">
+                            <label for="input-phone">Ваш телефон</label>
+                            <input type="tel" id="input-phone" name="input-phone"
+                                placeholder="+7   Введите 10 цифр номера"
+                                class="default-input default-input-phone default-input_contur-white" inputmode="tel">
+                        </div>
+                        <button type="submit" form="form-request-modal" class="btn btn-blue">Оставить заявку</button>
+                    </form>
+                    <div class="cont-text">Нажимая на кнопку "Отправить заявку" вы Соглашаетесь на обработку <a
+                            href="javascript: void(0)">персональных данных</a>,
+                        <a href="javascript: void(0)">Политика обработки персональных данных</a>
+                    </div>
+                </div>
+                <div class="request-inline-success flex-block">
+                    <div class="h2 heading-white">Благодарим за заявку,
+                        мы&#160;скоро свяжемся с&#160;вами!</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Jquery -->
+    <script type=" text/javascript" src="./js/librarys/jquery-3.3.1.min.js"></script>
+    <!-- current-device -->
+    <script type="text/javascript" src="./js/plugins/current-device/device.js"></script>
+    <!-- inputmask -->
+    <script type="text/javascript" src="./js/plugins/inputmask/jquery.inputmask.min.js"></script>
+    <!-- jquery cookie -->
+    <script type="text/javascript" src="./js/plugins/jquery-cookie/jquery.cookie.js"></script>
+    <!-- jquery modal -->
+    <script type="text/javascript" src="./js/plugins/jquery.modal/jquery.modal.min.js"></script>
+    <!-- aos -->
+    <script type="text/javascript" src="./js/plugins/aos/aos.js"></script>
+    <!-- Main -->
+    <script type="text/javascript" src="./js/main.js"></script>
+</body>
+
+</html>

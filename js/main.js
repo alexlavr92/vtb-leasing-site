@@ -1,5 +1,7 @@
 'use strict'
 
+
+
 let docWidth = document.body.clientWidth
 
 // Функционал блокировки скрола при открытии модального окна
@@ -1367,6 +1369,89 @@ jQuery(document).ready(function ($) {
     }
     //------------------------------------
 
+
+    // Init Map
+    if ($('#my-map').length) {
+        ymaps.ready(initYandexMap);
+        function initYandexMap() {
+            var setImageSize, setImageOffset
+            if (docWidth >= 768) {
+                setImageSize = [60, 60]
+                //    setImageOffset = [0, -70]
+            }
+            else {
+                setImageSize = [40, 40]
+                //    setImageOffset = [10, -40]
+            }
+            // Создание карты.
+            var myMap = new ymaps.Map("my-map", {
+                // Координаты центра карты.
+                // Порядок по умолчанию: «широта, долгота».
+                // Чтобы не определять координаты центра карты вручную,
+                // воспользуйтесь инструментом Определение координат.
+                center: [55.7048000, 37.6918980],
+                // Уровень масштабирования. Допустимые значения:
+                // от 0 (весь мир) до 19.
+                zoom: 17,
+                controls: ['zoomControl', 'fullscreenControl']
+            }, {
+                searchControlProvider: 'yandex#search'
+            }),
+                myPlacemark = new ymaps.Placemark(myMap.getCenter(), {
+                    /* hintContent: 'Собственный значок метки', */
+                    /* balloonContent: 'Это красивая метка' */
+                }, {
+                    // Опции.
+                    // Необходимо указать данный тип макета.
+                    iconLayout: 'default#image',
+                    // Своё изображение иконки метки.
+                    iconImageHref: "./media/icons/baloon.png",
+                    // Размеры метки.
+                    iconImageSize: setImageSize,
+                    // Смещение левого верхнего угла иконки относительно
+                    // её "ножки" (точки привязки).
+                    // iconImageOffset: setImageOffset
+                });
+
+            // let SetMapCenter = (map) => {
+            //     let pixelCenter = map.getGlobalPixelCenter();
+            //     const contactContentWidth = document.querySelector('.contacts-content').offsetWidth
+
+            //     // console.log(pixelCenter, contactContentWidth)
+            //     pixelCenter = [
+            //         pixelCenter[0] + (document.querySelector('.contacts-content').offsetWidth / 2),
+            //         pixelCenter[1]
+            //     ];
+            //     console.log(pixelCenter)
+            //     const geoCenter = map.options.get('projection').fromGlobalPixels(pixelCenter, map.getZoom());
+            //     map.setCenter(geoCenter);
+            // }
+            // SetMapCenter(myMap)
+
+            myMap.geoObjects
+                .add(myPlacemark)
+
+            myMap.container.events.add("sizechange", function (event) {
+                console.log(event)
+                const MapSize = myMap.container.getSize()
+                console.log(MapSize[0])
+                // SetMapCenter(myMap)
+                if (MapSize[0] <= 610) {
+                    myPlacemark.options.set({
+                        'iconImageSize': [40, 40]
+                    })
+                }
+                else {
+                    myPlacemark.options.set({
+                        'iconImageSize': [60, 60]
+                    })
+                }
+                // console.log(myMap.container.getSize())
+            });
+
+        }
+    }
+    //------------------------------------
 }) // finish doc ready
 
 

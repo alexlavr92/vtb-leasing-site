@@ -502,8 +502,6 @@ body {
   font-weight: normal;
   -webkit-overflow-scrolling: touch;
   -webkit-tap-highlight-color: transparent;
-  -webkit-touch-callout: none;
-  -webkit-user-select: none;
   line-height: normal;
   margin: 0;
   overflow-x: hidden;
