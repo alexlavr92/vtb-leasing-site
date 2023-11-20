@@ -1813,7 +1813,7 @@ header.sticky {
   -webkit-box-pack: start;
       -ms-flex-pack: start;
           justify-content: flex-start;
-  max-width: 520px;
+  max-width: 40%;
   color: #ffffff;
   line-height: normal;
 }
@@ -1858,7 +1858,7 @@ header.sticky {
 @media screen and (max-width: 1199px) {
   .top-section-content {
     padding: 50px 0;
-    max-width: 240px;
+    max-width: 260px;
   }
 }
 @media screen and (max-width: 767px) {
