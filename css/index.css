@@ -932,6 +932,11 @@ h2,
     top: 4px;
   }
 }
+@media screen and (max-width: 767px) {
+  .default-label-checkbox:after {
+    top: 6px;
+  }
+}
 .default-input-checkbox:checked + .default-label-checkbox:before {
   background: #ffffff;
 }

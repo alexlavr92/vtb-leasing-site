@@ -932,6 +932,11 @@ h2,
     top: 4px;
   }
 }
+@media screen and (max-width: 767px) {
+  .default-label-checkbox:after {
+    top: 6px;
+  }
+}
 .default-input-checkbox:checked + .default-label-checkbox:before {
   background: #ffffff;
 }
@@ -1836,31 +1841,21 @@ header.sticky {
 }
 @media screen and (max-width: 767px) {
   .card-slider-outer .swiper-button {
-    width: 25px;
-    height: 25px;
+    width: 20px;
+    height: 20px;
     background-color: #ffffff;
-    border-radius: 50%;
+    border-radius: 4px;
     margin-top: 5vw;
-    background-size: 60%;
+    background-size: 70%;
   }
 }
 .card-slider-outer .swiper-button.prev {
   left: 0;
   background-image: url(../media/icons/prev-black.svg);
 }
-@media screen and (max-width: 767px) {
-  .card-slider-outer .swiper-button.prev {
-    left: -10px;
-  }
-}
 .card-slider-outer .swiper-button.next {
   right: 0;
   background-image: url(../media/icons/next-black.svg);
-}
-@media screen and (max-width: 767px) {
-  .card-slider-outer .swiper-button.next {
-    right: -10px;
-  }
 }
 
 .card-slider-inner {
