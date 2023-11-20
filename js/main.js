@@ -934,67 +934,67 @@ jQuery(document).ready(function ($) {
             this.events(options)
         },
         events: function (options) {
+            const TooltipState = {
+                docWidth: document.body.clientWidth,
+                open: function (tooltipElem) {
+                    console.log(tooltipElem)
+                    // const docWidth = document.body.clientWidth
+                    if (!tooltipElem.hasClass("tooltip-open")) {
+                        $(".tooltip_content.tooltip-base").remove();
+                        options.tooltipElems.removeClass("tooltip-open");
+                        tooltipElem.addClass("tooltip-open");
+                        let thistooltip = tooltipElem.next(".tooltip-content"),
+                            thisTooltipClone = thistooltip.clone();
+                        $(thisTooltipClone).appendTo("body");
+                        console.log($(thisTooltipClone).innerHeight())
+                        if (this.docWidth >= 1200) {
+                            $(thisTooltipClone).css({
+                                position: "absolute",
+                                "z-index": "3",
+                                top: tooltipElem.offset().top - ($(thisTooltipClone).innerHeight() + 15),
+                            });
+                            if (document.body.hasAttribute("data-body-scroll-fix")) {
+                                let NowOffsetTop = $(thisTooltipClone).css("top"),
+                                    BodyOffsetTop = document.body.getAttribute("data-body-scroll-fix");
+                                /* console.log(gf) */
+                                $(thisTooltipClone).css("top", parseInt(NowOffsetTop) + parseInt(BodyOffsetTop));
+                                $(thisTooltipClone).css("z-index", "4"); // новое 14.06.2022
+                            }
+                            if (tooltipElem.width() < $(thisTooltipClone).width()) {
+                                console.log('ок')
+                                $(thisTooltipClone).css("left", tooltipElem.offset().left - ($(thisTooltipClone).innerWidth() - tooltipElem.innerWidth()) / 2);
+                            } else if (tooltipElem.width() >= $(thisTooltipClone).width()) {
+                                $(thisTooltipClone).css("left", tooltipElem.offset().left + (tooltipElem.innerWidth() - $(thisTooltipClone).innerWidth()) / 2);
+                            }
+                        } else {
+                            BlockScroll.open();
+                        }
+
+                        $(thisTooltipClone).fadeIn().addClass("tooltip-base");
+                        if (this.docWidth >= 1200) {
+                            let ToolTipOffset = $(thisTooltipClone).offset().left;
+                            if (ToolTipOffset < 0) {
+                                $(thisTooltipClone).css("left", tooltipElem.offset().left - 15).addClass("tooltip-base--over-left");
+                            }
+                            if (this.docWidth - (ToolTipOffset + $(thisTooltipClone).innerWidth()) < 0) {
+                                $(thisTooltipClone)
+                                    .css("left", tooltipElem.offset().left - $(thisTooltipClone).innerWidth() + tooltipElem.innerWidth() + 15)
+                                    .addClass("tooltip-base--over-right");
+                            }
+                        }
+                    }
+                },
+                close: function (tooltipElem) {
+                    // console.log(this.docWidth)
+                    tooltipElem.removeClass("tooltip-open");
+                    $(".tooltip-content.tooltip-base").remove();
+                    if (this.docWidth < 1200) BlockScroll.close(); // новое
+                    /*  console.log('tooltip icon close') */
+                }
+            }
             // console.log('.' + (options.tooltipElems[0].className) + '')
             $('body').on('mouseenter mouseleave click', '.' + (options.tooltipElems[0].className) + '', function (e) {
                 e.preventDefault()
-                const TooltipState = {
-                    docWidth: document.body.clientWidth,
-                    open: function (tooltipElem) {
-                        console.log(tooltipElem)
-                        // const docWidth = document.body.clientWidth
-                        if (!tooltipElem.hasClass("tooltip-open")) {
-                            $(".tooltip_content.tooltip-base").remove();
-                            options.tooltipElems.removeClass("tooltip-open");
-                            tooltipElem.addClass("tooltip-open");
-                            let thistooltip = tooltipElem.next(".tooltip-content"),
-                                thisTooltipClone = thistooltip.clone();
-                            $(thisTooltipClone).appendTo("body");
-                            console.log($(thisTooltipClone).innerHeight())
-                            if (this.docWidth >= 1200) {
-                                $(thisTooltipClone).css({
-                                    position: "absolute",
-                                    "z-index": "3",
-                                    top: tooltipElem.offset().top - ($(thisTooltipClone).innerHeight() + 15),
-                                });
-                                if (document.body.hasAttribute("data-body-scroll-fix")) {
-                                    let NowOffsetTop = $(thisTooltipClone).css("top"),
-                                        BodyOffsetTop = document.body.getAttribute("data-body-scroll-fix");
-                                    /* console.log(gf) */
-                                    $(thisTooltipClone).css("top", parseInt(NowOffsetTop) + parseInt(BodyOffsetTop));
-                                    $(thisTooltipClone).css("z-index", "4"); // новое 14.06.2022
-                                }
-                                if (tooltipElem.width() < $(thisTooltipClone).width()) {
-                                    console.log('ок')
-                                    $(thisTooltipClone).css("left", tooltipElem.offset().left - ($(thisTooltipClone).innerWidth() - tooltipElem.innerWidth()) / 2);
-                                } else if (tooltipElem.width() >= $(thisTooltipClone).width()) {
-                                    $(thisTooltipClone).css("left", tooltipElem.offset().left + (tooltipElem.innerWidth() - $(thisTooltipClone).innerWidth()) / 2);
-                                }
-                            } else {
-                                BlockScroll.open();
-                            }
-
-                            $(thisTooltipClone).fadeIn().addClass("tooltip-base");
-                            if (this.docWidth >= 1200) {
-                                let ToolTipOffset = $(thisTooltipClone).offset().left;
-                                if (ToolTipOffset < 0) {
-                                    $(thisTooltipClone).css("left", tooltipElem.offset().left - 15).addClass("tooltip-base--over-left");
-                                }
-                                if (this.docWidth - (ToolTipOffset + $(thisTooltipClone).innerWidth()) < 0) {
-                                    $(thisTooltipClone)
-                                        .css("left", tooltipElem.offset().left - $(thisTooltipClone).innerWidth() + tooltipElem.innerWidth() + 15)
-                                        .addClass("tooltip-base--over-right");
-                                }
-                            }
-                        }
-                    },
-                    close: function (tooltipElem) {
-                        console.log(this.docWidth)
-                        tooltipElem.removeClass("tooltip-open");
-                        $(".tooltip-content.tooltip-base").remove();
-                        if (this.docWidth < 1200) BlockScroll.close(); // новое
-                        /*  console.log('tooltip icon close') */
-                    }
-                }
                 if (document.body.clientWidth >= 1200) {
                     if (e.type == 'mouseenter') {
                         // console.log($(this))
@@ -1009,56 +1009,49 @@ jQuery(document).ready(function ($) {
                     }
                 }
                 else {
-
+                    if (e.type == 'click') {
+                        // console.log('click')
+                        if (!$(this).hasClass('tooltip-open')) {
+                            TooltipState.open($(this))
+                        }
+                        // else {
+                        //     TooltipState.close($(this))
+                        // }
+                    }
                 }
             })
+            // Обработки клика по документу вне области tooltip //
+            $(document).on("click", function (e) {
+                // console.log('target')
+                if (document.body.clientWidth < 1200 && $(".tooltip-content.tooltip-base").length) {
+                    const targetElem = $(".tooltip-content.tooltip-base .tootlip-content-inner"),
+                        TooltipElem = $('.tooltip.tooltip-open')
+                    if (
+                        (!targetElem.is(e.target) && // если клик был не по нашему блоку
+                            targetElem.has(e.target).length === 0) &&
+                        (!TooltipElem.is(e.target) && TooltipElem.has(e.target).length === 0)
+                    ) {
+                        // и не по его дочерним элементам
+                        TooltipState.close(TooltipElem)
+                    }
+                }
+            });
+            //----------------------//
+
+            // Обработка клика по крестику в тултипе //
+            $("body").on("click", ".tooltip-content .tooltip-close", function (e) {
+                e.preventDefault();
+                const TooltipElem = $('.tooltip.tooltip-open')
+                TooltipState.close(TooltipElem)
+            });
+            //----------------------//
         }
     }
 
     if ($('.tooltip').length) {
         Tooltip.init()
     }
-    // Обработки клика по документу вне области tooltip //
-    $(document).on("click", function (e) {
-        // событие клика по веб-документу
-        if ($(".tooltip_content.tooltip-base").length > 0) {
-            var div;
-            if (docWidth >= 1200) {
-                div = $(".tooltip_content.tooltip-base");
-            } else {
-                div = $(".tooltip_content.tooltip-base .tooltip-wrapper");
-            }
-            //
-            var div2 = $(".tooltip.tooltip-open");
-            if (
-                !div.is(e.target) && // если клик был не по нашему блоку
-                div.has(e.target).length === 0 &&
-                !div2.is(e.target) && // если клик был не по нашему блоку
-                div2.has(e.target).length === 0
-            ) {
-                // и не по его дочерним элементам
-                $(div2).removeClass("tooltip-open");
-                if (docWidth >= 1200) $(div).remove();
-                else {
-                    $(div).parent(".tooltip_content.tooltip-base").remove();
-                    if ($("body").find(".jquery-modal").length == 0) blockScroll("close");
-                }
-                /* console.log('tooltip-base remove') */
-            }
-        }
-    });
-    //----------------------//
 
-    // Обработка клика по крестику в тултипе //
-    $("body").on("click", ".tooltip_content .close-btn", function (e) {
-        e.preventDefault();
-        $(".tooltip-open.tooltip-open").removeClass("tooltip-open");
-        $(this).parents(".tooltip_content").remove();
-        if (docWidth < 1200) {
-            if ($("body").find(".jquery-modal").length == 0) blockScroll("close");
-        }
-    });
-    //----------------------//
 
 
     const TabsCardInit = {

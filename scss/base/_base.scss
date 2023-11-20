@@ -873,6 +873,20 @@ table {
     display: none;
     position: absolute;
 
+    @media screen {
+        @media (max-width: 1199px) {
+            &.tooltip-base {
+                position: fixed;
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: 100%;
+                background: rgba($color-third, .75);
+                z-index: 3;
+            }
+        }
+    }
+
     .tootlip-content-inner {
         max-width: 280px;
         padding: 10px 20px;
@@ -881,11 +895,52 @@ table {
         box-shadow: 0px 0px 20px 0px rgba(0, 98, 255, 0.20);
         position: relative;
 
+        @media screen {
+            @media (max-width: 1199px) {
+                position: absolute;
+                top: 50%;
+                left: 50%;
+                padding: 30px 20px 20px;
+                transform: translate(-50%, -50%);
+                width: 100%;
+            }
+        }
+
     }
 
     .tooltip-content-text {
         color: $color-third;
         font-size: .7rem;
+
+        @media screen {
+            @media (max-width: 1199px) {
+                font-size: 1rem;
+            }
+
+            @media (max-width: 767px) {
+                font-size: 1.1rem;
+            }
+        }
+    }
+
+    .tooltip-close {
+        @media screen {
+            @media (max-width: 1199px) {
+                width: 15px;
+                height: 15px;
+                position: absolute;
+                top: 10px;
+                right: 10px;
+                @include bg-style;
+                background-image: url(../media/icons/big-close.svg);
+                opacity: .7;
+                transition: $transition;
+
+                &:active {
+                    opacity: 1;
+                }
+            }
+        }
     }
 
     &:after {
