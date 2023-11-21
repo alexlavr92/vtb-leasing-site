@@ -1411,6 +1411,166 @@ jQuery(document).ready(function ($) {
         }
     }
     //------------------------------------
+
+
+    let EditedFltr = {
+        defaultsOptions: {
+            AllItems: $('.catalog-item'),
+            AllItemsProps: [],
+            SelectMark: $('.select-custom[name="mark"]'),
+            SelectModel: $('.select-custom[name="model"]'),
+            SelectSort: $('.select-custom[name="sort"]'),
+            ItemRequest: $('.catalog-item-request'),
+            ResetBtn: $('.reset-fltr-btn')
+        },
+        getItemInfo: function (options) {
+            var options = $.extend(this.defaultsOptions, options)
+            $.each(options.AllItems, function (index, elem) {
+                const objInfo = $(elem).attr('data-car-info')
+                options.AllItemsProps[index] = JSON.parse(objInfo)
+                options.AllItemsProps[index].elem = $(elem)
+                options.AllItemsProps[index].elem.attr('data-index', (index + 1))
+            })
+            console.log(options.AllItemsProps)
+            this.fillFltrMark(options)
+            this.events(options)
+
+        },
+        uniqueValueSelect: function (arr) {
+            let result = [];
+
+            for (let str of arr) {
+                if (!result.includes(str)) {
+                    result.push(str);
+                }
+            }
+            return result;
+        },
+        ShowHideItem: function (options, elem, state = 'hide') {
+            options.ItemRequest.hide()
+            if (state == 'hide') {
+                elem.addClass('hide')
+            }
+            else {
+                elem.removeClass('hide')
+            }
+
+        },
+        fillFltrSelect: function (arrayItems, select) {
+            for (let item of arrayItems) {
+                const option = '<option value="' + item + '">' + item + '</option>'
+                $(option).appendTo(select)
+            }
+            select.trigger('change.select2')
+        },
+        fillFltrMark: function (options) {
+            let MarksArray = []
+            $.each(options.AllItemsProps, function (index, elem) {
+                let ElemMark = elem.mark
+                // .toLowerCase()
+                // ElemMark = ElemMark.charAt(0).toUpperCase() + ElemMark.slice(1);
+                MarksArray[index] = ElemMark
+            })
+            MarksArray = this.uniqueValueSelect(MarksArray);
+            this.fillFltrSelect(MarksArray, options.SelectMark);
+        },
+        fillFltrModel: function (markValue, options) {
+            let ModelsArray = []
+            const ShowHideItem = this.ShowHideItem
+            $.each(options.AllItemsProps, function (index, item) {
+                if (item.mark.toLowerCase() == markValue.toLowerCase()) {
+                    let ElemModel = item.model
+                    ModelsArray.push(ElemModel)
+                    ShowHideItem(options, item.elem, 'show')
+                }
+                else {
+                    ShowHideItem(options, item.elem)
+                }
+            })
+
+            ModelsArray = this.uniqueValueSelect(ModelsArray)
+            // console.log(ModelsArray)
+            options.SelectModel.children(':not(:first-child)').remove()
+            this.fillFltrSelect(ModelsArray, options.SelectModel)
+            if (options.SelectModel.siblings('.select2-container--notfirst').length)
+                options.SelectModel.siblings('.select2-container--notfirst').removeClass('select2-container--notfirst')
+            options.SelectModel.prop('selectedIndex', '0')
+        },
+        changeSelectModel: function (modelValue, options) {
+            const CurrentMark = this.SelectedMark,
+                ShowHideItem = this.ShowHideItem
+            // 
+            options.AllItemsProps.map(function (item) {
+                if (item.mark == CurrentMark) {
+                    if (item.model != modelValue) {
+                        ShowHideItem(options, item.elem)
+                    }
+                    else {
+                        ShowHideItem(options, item.elem, 'show')
+                    }
+                }
+            })
+            // console.log(ModelItems)
+        },
+        clearSelectModel: function () {
+            this.SelectedModel = null
+            // console.log(this)
+        },
+        FltrSorted: function () {
+
+        },
+        resetFltr: function (options) {
+            options.AllItems.removeClass('hide')
+            const CatalogItemsWrapper = options.AllItems.closest('.catalog-items')
+            // console.log(CatalogItemsWrapper)
+            options.AllItemsProps.sort(function (itemA, itemB) {
+                const DataIndex = 'data-index',
+                    IndexA = parseInt(itemA.elem.attr(DataIndex)),
+                    IndexB = parseInt(itemB.elem.attr(DataIndex))
+                // console.log(IndexA, IndexB)
+                if (IndexA < IndexB) return -1;
+                if (IndexA > IndexB) return 1;
+                return 0;
+            })
+                // console.log(SortedArray)
+                .forEach(function (item, index) {
+                    // console.log(index)
+                    item.elem.appendTo(CatalogItemsWrapper)
+                    if (index == 4) {
+                        options.ItemRequest.show()
+                        options.ItemRequest.insertAfter(item.elem)
+                    }
+
+                    // parent.appendChild(node)
+                });
+        },
+        events: function (options) {
+            const $thisObj = this
+            options.SelectMark.on('change', function () {
+                $thisObj.SelectedMark = $(this).val()
+                $thisObj.fillFltrModel($thisObj.SelectedMark, options)
+                if ($thisObj.SelectedModel)
+                    $thisObj.clearSelectModel()
+                // $thisObj.fltrApply(options)
+            })
+            options.SelectModel.on('change', function () {
+                $thisObj.SelectedModel = $(this).val()
+                $thisObj.changeSelectModel($thisObj.SelectedModel, options)
+                // console.log($thisObj)
+                // $thisObj.fltrApply(options)
+            })
+            options.ResetBtn.on('click', function () {
+                $thisObj.resetFltr(options)
+            })
+        },
+
+    }
+
+    if ($('.catalog-items .catalog-item').length) {
+        EditedFltr.getItemInfo()
+    }
+
+
 }) // finish doc ready
 
 

@@ -3256,6 +3256,9 @@ section.card-descript {
   -webkit-transition: all 0.2s ease;
   transition: all 0.2s ease;
 }
+.catalog-item.hide {
+  display: none;
+}
 @media screen and (max-width: 1199px) {
   .catalog-item {
     width: calc(50% - 30px);

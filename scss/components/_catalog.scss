@@ -110,6 +110,10 @@
     position: relative;
     transition: $transition;
 
+    &.hide {
+        display: none;
+    }
+
     @media screen {
         @media (max-width: 1199px) {
             width: calc(50% - 30px);
