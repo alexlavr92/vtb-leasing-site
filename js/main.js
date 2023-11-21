@@ -130,7 +130,7 @@ jQuery(document).ready(function ($) {
                             $thisObj.renderSizeSlides(sliderContainer)
                             // console.log('update')
                             $this.update()
-                        }, 1);
+                        }, 10);
                     },
                     resize: function () {
                         const $this = this
@@ -138,7 +138,7 @@ jQuery(document).ready(function ($) {
                             $thisObj.renderSizeSlides(sliderContainer)
                             // console.log('update')
                             $this.update()
-                        }, 1);
+                        }, 10);
                     }
                 },
             })
@@ -306,7 +306,7 @@ jQuery(document).ready(function ($) {
             // const $this = this
             setTimeout(function () {
                 nosSlider.update()
-            }, 1);
+            }, 10);
         },
         init: function (options) {
             const obj = this
@@ -425,7 +425,7 @@ jQuery(document).ready(function ($) {
                             $thisObj.renderSizeSlider(sliderContainer, this)
                             // console.log('update')
                             $this.update()
-                        }, 1);
+                        }, 10);
                         // console.log(this)
 
                     },
@@ -440,7 +440,7 @@ jQuery(document).ready(function ($) {
                             }
                             // console.log('update')
                             $this.update()
-                        }, 1);
+                        }, 10);
                     }
                 },
                 breakpoints: {
@@ -891,14 +891,14 @@ jQuery(document).ready(function ($) {
                         const $this = this
                         setTimeout(function () {
                             $this.update()
-                        }, 1);
+                        }, 10);
                     },
 
                     resize: function () {
                         const $this = this
                         setTimeout(function () {
                             $this.update()
-                        }, 1);
+                        }, 10);
                     }
                 },
 
@@ -1291,13 +1291,13 @@ jQuery(document).ready(function ($) {
                         const $this = this
                         setTimeout(function () {
                             $this.update()
-                        }, 1);
+                        }, 10);
                     },
                     resize: function () {
                         const $this = this
                         setTimeout(function () {
                             $this.update()
-                        }, 1);
+                        }, 10);
                     }
                 },
                 breakpoints: {
@@ -1540,9 +1540,15 @@ jQuery(document).ready(function ($) {
                         options.ItemRequest.show()
                         options.ItemRequest.insertAfter(item.elem)
                     }
-
                     // parent.appendChild(node)
                 });
+            options.SelectMark.prop('selectedIndex', '0').trigger('change.select2')
+            if (options.SelectMark.siblings('.select2-container--notfirst').length)
+                options.SelectMark.siblings('.select2-container--notfirst').removeClass('select2-container--notfirst')
+            options.SelectModel.children(':not(:first-child)').remove()
+            if (options.SelectModel.siblings('.select2-container--notfirst').length)
+                options.SelectModel.siblings('.select2-container--notfirst').removeClass('select2-container--notfirst')
+            options.SelectModel.prop({ selectedIndex: '0', disabled: true }).trigger('change.select2')
         },
         events: function (options) {
             const $thisObj = this

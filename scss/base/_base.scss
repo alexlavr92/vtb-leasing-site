@@ -602,6 +602,10 @@ h2,
         }
     }
 
+    &.select2-container--disabled #{$selectorSingle} {
+        cursor: default;
+    }
+
     &.select2-container--open #{$selectorSingle}:before {
         transform: translateY(-50%) rotate(-180deg);
     }
