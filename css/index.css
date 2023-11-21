@@ -3465,7 +3465,7 @@ header.sticky {
     bottom: 0;
     top: auto;
     height: auto;
-    width: 70%;
+    width: 69%;
   }
 }
 @media screen and (max-width: 767px) {

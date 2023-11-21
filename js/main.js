@@ -1432,11 +1432,12 @@ jQuery(document).ready(function ($) {
                 options.AllItemsProps[index].elem.attr('data-index', (index + 1))
             })
             console.log(options.AllItemsProps)
+            options.CatalogItemsWrapper = options.AllItems.closest('.catalog-items')
             this.fillFltrMark(options)
             this.events(options)
 
         },
-        uniqueValueSelect: function (arr) {
+        uniqueValuesSelect: function (arr) {
             let result = [];
 
             for (let str of arr) {
@@ -1471,7 +1472,7 @@ jQuery(document).ready(function ($) {
                 // ElemMark = ElemMark.charAt(0).toUpperCase() + ElemMark.slice(1);
                 MarksArray[index] = ElemMark
             })
-            MarksArray = this.uniqueValueSelect(MarksArray);
+            MarksArray = this.uniqueValuesSelect(MarksArray);
             this.fillFltrSelect(MarksArray, options.SelectMark);
         },
         fillFltrModel: function (markValue, options) {
@@ -1488,7 +1489,7 @@ jQuery(document).ready(function ($) {
                 }
             })
 
-            ModelsArray = this.uniqueValueSelect(ModelsArray)
+            ModelsArray = this.uniqueValuesSelect(ModelsArray)
             // console.log(ModelsArray)
             options.SelectModel.children(':not(:first-child)').remove()
             this.fillFltrSelect(ModelsArray, options.SelectModel)
@@ -1514,41 +1515,81 @@ jQuery(document).ready(function ($) {
         },
         clearSelectModel: function () {
             this.SelectedModel = null
-            // console.log(this)
         },
-        FltrSorted: function () {
+        sortedFltr: function (options, state) {
+            const ShowedItems = []
+            options.AllItems.map(function (index, item) {
+                if (!$(item).hasClass('hide'))
+                    ShowedItems.push($(item))
+            })
+            // console.log(ShowedItems)
+            ShowedItems.sort(function (itemA, itemB) {
+                // console.log(IndexA, IndexB)
+                if (state == 'reset') {
+                    const DataIndex = 'data-index',
+                        IndexA = parseInt(itemA.attr(DataIndex)),
+                        IndexB = parseInt(itemB.attr(DataIndex))
+                    if (IndexA < IndexB) return -1;
+                    if (IndexA > IndexB) return 1;
+                }
+                if (state == 'desc-views') {
+                    const DataViews = 'view-count',
+                        ViewsA = parseInt(itemA.find('.' + DataViews + '> span').text().replace(/\s+/g, "")),
+                        ViewsB = parseInt(itemB.find('.' + DataViews + '> span').text().replace(/\s+/g, ""))
+                    // console.log(ViewsA, ViewsB)
+                    if (ViewsA > ViewsB) return -1;
+                    if (ViewsA < ViewsB) return 1;
+                }
+                if (state == 'asc-price' || 'desc-price') {
+                    const DataPrice = 'item-price-current',
+                        PriceA = parseInt(itemA.find('.' + DataPrice + '> span').text().replace(/\s+/g, "")),
+                        PriceB = parseInt(itemB.find('.' + DataPrice + '> span').text().replace(/\s+/g, ""))
+                    if (state == 'asc-price') {
+                        if (PriceA < PriceB) return -1;
+                        if (PriceA > PriceB) return 1;
+                    }
+                    else {
+                        if (PriceA > PriceB) return -1;
+                        if (PriceA < PriceB) return 1;
+                    }
+                }
+                return 0;
+
+            })
+                .forEach(function (item, index) {
+                    item.appendTo(options.CatalogItemsWrapper)
+                    // if (state == 'reset') {
+                    if (index == 4 && document.body.clientWidth >= 1200) {
+                        options.ItemRequest.show()
+                        options.ItemRequest.insertAfter(item)
+                    }
+                    // }
+                });
 
         },
         resetFltr: function (options) {
+
             options.AllItems.removeClass('hide')
-            const CatalogItemsWrapper = options.AllItems.closest('.catalog-items')
-            // console.log(CatalogItemsWrapper)
-            options.AllItemsProps.sort(function (itemA, itemB) {
-                const DataIndex = 'data-index',
-                    IndexA = parseInt(itemA.elem.attr(DataIndex)),
-                    IndexB = parseInt(itemB.elem.attr(DataIndex))
-                // console.log(IndexA, IndexB)
-                if (IndexA < IndexB) return -1;
-                if (IndexA > IndexB) return 1;
-                return 0;
-            })
-                // console.log(SortedArray)
-                .forEach(function (item, index) {
-                    // console.log(index)
-                    item.elem.appendTo(CatalogItemsWrapper)
-                    if (index == 4) {
-                        options.ItemRequest.show()
-                        options.ItemRequest.insertAfter(item.elem)
-                    }
-                    // parent.appendChild(node)
-                });
-            options.SelectMark.prop('selectedIndex', '0').trigger('change.select2')
-            if (options.SelectMark.siblings('.select2-container--notfirst').length)
-                options.SelectMark.siblings('.select2-container--notfirst').removeClass('select2-container--notfirst')
+
+            // Функция сброса селектов фильтра
+            let ResetFltrSelects = function (resetSelect) {
+                resetSelect.prop('selectedIndex', '0').trigger('change.select2')
+                if (resetSelect.siblings('.select2-container--notfirst').length)
+                    resetSelect.siblings('.select2-container--notfirst').removeClass('select2-container--notfirst')
+
+            }
+            //------------------------------------
+
+            ResetFltrSelects(options.SelectMark)
+
             options.SelectModel.children(':not(:first-child)').remove()
-            if (options.SelectModel.siblings('.select2-container--notfirst').length)
-                options.SelectModel.siblings('.select2-container--notfirst').removeClass('select2-container--notfirst')
-            options.SelectModel.prop({ selectedIndex: '0', disabled: true }).trigger('change.select2')
+            ResetFltrSelects(options.SelectModel)
+            options.SelectModel.prop('disabled', true).trigger('change.select2')
+
+            ResetFltrSelects(options.SelectSort)
+
+            // Вызов функции сброса фильтра в состояние "По умолчанию"
+            this.sortedFltr(options, 'reset')
         },
         events: function (options) {
             const $thisObj = this
@@ -1557,13 +1598,18 @@ jQuery(document).ready(function ($) {
                 $thisObj.fillFltrModel($thisObj.SelectedMark, options)
                 if ($thisObj.SelectedModel)
                     $thisObj.clearSelectModel()
-                // $thisObj.fltrApply(options)
+                $thisObj.sortedFltr(options, options.SelectSort.val())
             })
             options.SelectModel.on('change', function () {
                 $thisObj.SelectedModel = $(this).val()
                 $thisObj.changeSelectModel($thisObj.SelectedModel, options)
                 // console.log($thisObj)
                 // $thisObj.fltrApply(options)
+                $thisObj.sortedFltr(options, options.SelectSort.val())
+            })
+            options.SelectSort.on('change', function () {
+                const selectValue = $(this).val()
+                $thisObj.sortedFltr(options, selectValue)
             })
             options.ResetBtn.on('click', function () {
                 $thisObj.resetFltr(options)
