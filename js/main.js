@@ -610,6 +610,19 @@ jQuery(document).ready(function ($) {
                     }
                 }
             })
+
+            const data = new FormData()  // переменная, в которую записываются все поля формы
+            $.each(_formFields, function () {
+                const _currentField = $(this)
+                let _currentFieldVal = _currentField.val()
+                if (_currentField.hasClass('default-input-phone')) {
+                    _currentFieldVal = _currentFieldVal.replace(/\s+/g, "")
+                }
+                data.append(_currentField.attr('name'), _currentFieldVal)
+            })
+            for (let [key, value] of data) {
+                console.log('' + key + ' - ' + value + '')
+            }
         }
     })
     //----------------------//
@@ -1413,6 +1426,7 @@ jQuery(document).ready(function ($) {
     //------------------------------------
 
 
+    // Функционал работы фильтра и каталога
     let EditedFltr = {
         defaultsOptions: {
             AllItems: $('.catalog-item'),
@@ -1431,7 +1445,7 @@ jQuery(document).ready(function ($) {
                 options.AllItemsProps[index].elem = $(elem)
                 options.AllItemsProps[index].elem.attr('data-index', (index + 1))
             })
-            console.log(options.AllItemsProps)
+            // console.log(options.AllItemsProps)
             options.CatalogItemsWrapper = options.AllItems.closest('.catalog-items')
             this.fillFltrMark(options)
             this.events(options)
@@ -1455,7 +1469,6 @@ jQuery(document).ready(function ($) {
             else {
                 elem.removeClass('hide')
             }
-
         },
         fillFltrSelect: function (arrayItems, select) {
             for (let item of arrayItems) {
@@ -1621,7 +1634,7 @@ jQuery(document).ready(function ($) {
     if ($('.catalog-items .catalog-item').length) {
         EditedFltr.getItemInfo()
     }
-
+    //------------------------------------
 
 }) // finish doc ready
 
