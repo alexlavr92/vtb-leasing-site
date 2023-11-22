@@ -1483,8 +1483,15 @@ jQuery(document).ready(function ($) {
 
                 if (AllItems.length >= CountShowElems) {
                     if (this.SelectedMark || this.SelectedModel) {
+                        BtnHideElem.show()
+                        AllItems.map(function (index, elem) {
+                            // console.log(index, elem)
+                            if (index > 5) {
+                                $(elem).addClass('mob-hide')
+                            }
+                        })
+                        // AllItems.filter('.mob-hide').removeClass('mob-hide')
 
-                        BtnHideElem.hide()
                     }
                     else {
                         BtnHideElem.show()
@@ -1521,12 +1528,22 @@ jQuery(document).ready(function ($) {
                 BtnHideElem = options.AllItems.closest('.catalog-wrapper').find('.btn-mob'),
                 CountNextShow = 6
 
-            if (options.AllItems.length - (LastShowElem.index() + 1) > CountNextShow) {
-                // console.log('больше чем 6 элементов')
+            let AllItemsLength, LastShowElemIndex
+            if (this.SelectedMark || this.SelectedModel) {
+                const AllItems = options.AllItems.filter(":not(.hide)"),
+                    AllItemsVisible = options.AllItems.filter(':not(.hide):not(.mob-hide)')
+                AllItemsLength = AllItems.length
+                LastShowElemIndex = AllItemsVisible.length
+            }
+            else {
+                AllItemsLength = options.AllItems.length
+                LastShowElemIndex = LastShowElem.index() + 1
+            }
 
-                this.SelectedMark
-                    ? LastShowElem.nextAll().removeClass('mob-hide')
-                    : LastShowElem.nextAll().filter(':not(.catalog-item-request)').slice(0, CountNextShow).removeClass('mob-hide')
+            // console.log(AllItemsLength, LastShowElemIndex)
+            if (AllItemsLength - LastShowElemIndex > CountNextShow) {
+                // console.log('больше чем 6 элементов')
+                LastShowElem.nextAll().filter(':not(.catalog-item-request)').slice(0, CountNextShow).removeClass('mob-hide')
             }
             else {
                 // console.log('меньше чем 6 элементов')
