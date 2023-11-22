@@ -3259,7 +3259,7 @@ section.card-descript {
   -webkit-transition: all 0.2s ease;
   transition: all 0.2s ease;
 }
-.catalog-item.hide {
+.catalog-item.hide, .catalog-item.mob-hide {
   display: none;
 }
 @media screen and (max-width: 1199px) {
@@ -3553,7 +3553,7 @@ section.card-descript {
 }
 @media screen and (max-width: 767px) {
   .catalog-item-request {
-    display: none;
+    display: none !important;
   }
 }
 .catalog-item-request .img-wrapper {
@@ -3604,7 +3604,7 @@ section.card-descript {
       -ms-flex-pack: center;
           justify-content: center;
 }
-@media screen and (min-width: 768px) {
+@media screen and (min-width: 1200px) {
   .catalog-btn-wrapper > .btn-mob {
     display: none;
   }
@@ -3612,10 +3612,6 @@ section.card-descript {
 @media screen and (max-width: 1199px) {
   .catalog-btn-wrapper {
     margin-top: 50px;
-  }
-}
-@media screen and (max-width: 767px) {
-  .catalog-btn-wrapper {
     -webkit-box-orient: vertical;
     -webkit-box-direction: normal;
         -ms-flex-direction: column;
@@ -3626,14 +3622,13 @@ section.card-descript {
     -webkit-box-pack: start;
         -ms-flex-pack: start;
             justify-content: flex-start;
-    margin-top: 30px;
-    gap: 30px;
     -webkit-box-pack: initial;
         -ms-flex-pack: initial;
             justify-content: initial;
     -webkit-box-align: center;
         -ms-flex-align: center;
             align-items: center;
+    gap: 20px;
   }
   .catalog-btn-wrapper .btn:last-child {
     height: auto;
@@ -3649,6 +3644,11 @@ section.card-descript {
     border-color: transparent;
     background: transparent;
     color: #0046E2;
+  }
+}
+@media screen and (max-width: 1199px) {
+  .catalog-btn-wrapper {
+    margin-top: 30px;
   }
 }
 

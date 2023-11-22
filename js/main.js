@@ -306,6 +306,7 @@ jQuery(document).ready(function ($) {
             // const $this = this
             setTimeout(function () {
                 nosSlider.update()
+                // nosSlider.init()
             }, 10);
         },
         init: function (options) {
@@ -320,6 +321,9 @@ jQuery(document).ready(function ($) {
                 slidesPerGroup: options.slidesGroup,
                 // grabCursor: true,
                 preloadImages: false,
+                observer: true,
+                observeParents: true,
+                // observeSlideChildren: true,
                 lazy: true,
                 spaceBetween: options.SpaceBetweenPx,
                 watchOverflow: true,
@@ -337,14 +341,25 @@ jQuery(document).ready(function ($) {
                     },
                     resize: function () {
                         obj.sliderUpdate(this)
-
+                        // console.log('resize')
                         // this.updateSlides()
                         // console.log(document.body.clientWidth)
                     }
                 },
 
             })
-            // this.events(sliderContainer, options.windowWidth)
+            // this.events(swiper, options)
+        },
+        events: function (slider, options) {
+            const obj = this
+
+            $(window).on('resize', function () {
+                if (options.windowWidth != document.body.clientWidth) {
+                    options.windowWidth = document.body.clientWidth
+                    obj.sliderUpdate(slider)
+                }
+            })
+
         }
     }
     if ($('.catalog-item-slider_wrapper').length) {
@@ -1435,21 +1450,61 @@ jQuery(document).ready(function ($) {
             SelectModel: $('.select-custom[name="model"]'),
             SelectSort: $('.select-custom[name="sort"]'),
             ItemRequest: $('.catalog-item-request'),
-            ResetBtn: $('.reset-fltr-btn')
+            ResetBtn: $('.reset-fltr-btn'),
+            docWidth: document.body.clientWidth
         },
-        getItemInfo: function (options) {
-            var options = $.extend(this.defaultsOptions, options)
+        getItemsProps: function (options) {
             $.each(options.AllItems, function (index, elem) {
                 const objInfo = $(elem).attr('data-car-info')
                 options.AllItemsProps[index] = JSON.parse(objInfo)
                 options.AllItemsProps[index].elem = $(elem)
-                options.AllItemsProps[index].elem.attr('data-index', (index + 1))
+                if (!options.AllItemsProps[index].elem.attr('data-index'))
+                    options.AllItemsProps[index].elem.attr('data-index', (index + 1))
             })
-            // console.log(options.AllItemsProps)
+        },
+        getItemInfo: function (options) {
+            var options = $.extend(this.defaultsOptions, options)
+            this.getItemsProps(options)
             options.CatalogItemsWrapper = options.AllItems.closest('.catalog-items')
             this.fillFltrMark(options)
             this.events(options)
 
+        },
+        resizeFilter: function (options) {
+
+            options.AllItems.removeClass('mob-hide')
+            const AllItems = options.AllItems.filter(':not(.hide)'),
+                BtnHideElem = AllItems.closest('.catalog-wrapper').find('.btn-mob')
+
+            if (options.docWidth < 1200) {
+                const CountShowElems = 6
+
+                options.ItemRequest.insertAfter(options.AllItems.filter(':nth-child(3)'))
+
+                if (AllItems.length >= CountShowElems) {
+                    if (this.SelectedMark || this.SelectedModel) {
+
+                        BtnHideElem.hide()
+                    }
+                    else {
+                        BtnHideElem.show()
+                        AllItems.filter(':not(:nth-child(-n+' + CountShowElems + '))').addClass('mob-hide')
+                    }
+                }
+                else {
+                    BtnHideElem.hide()
+                    AllItems.filter('.mob-hide').removeClass('mob-hide')
+                }
+            }
+            else {
+
+                if (options.ItemRequest.index() == 3)
+                    options.ItemRequest.insertAfter(options.AllItems.filter(':nth-child(6)'))
+
+                AllItems.filter('.mob-hide').removeClass('mob-hide')
+                BtnHideElem.hide()
+            }
+            AOS.refresh();
         },
         uniqueValuesSelect: function (arr) {
             let result = [];
@@ -1460,6 +1515,25 @@ jQuery(document).ready(function ($) {
                 }
             }
             return result;
+        },
+        ShowHideElemsMobile: function (options) {
+            const LastShowElem = options.AllItems.filter(':not(.mob-hide):not(.hide)').last(),
+                BtnHideElem = options.AllItems.closest('.catalog-wrapper').find('.btn-mob'),
+                CountNextShow = 6
+
+            if (options.AllItems.length - (LastShowElem.index() + 1) > CountNextShow) {
+                // console.log('больше чем 6 элементов')
+
+                this.SelectedMark
+                    ? LastShowElem.nextAll().removeClass('mob-hide')
+                    : LastShowElem.nextAll().filter(':not(.catalog-item-request)').slice(0, CountNextShow).removeClass('mob-hide')
+            }
+            else {
+                // console.log('меньше чем 6 элементов')
+                LastShowElem.nextAll().removeClass('mob-hide')
+                BtnHideElem.hide()
+            }
+            AOS.refresh();
         },
         ShowHideItem: function (options, elem, state = 'hide') {
             options.ItemRequest.hide()
@@ -1501,7 +1575,6 @@ jQuery(document).ready(function ($) {
                     ShowHideItem(options, item.elem)
                 }
             })
-
             ModelsArray = this.uniqueValuesSelect(ModelsArray)
             // console.log(ModelsArray)
             options.SelectModel.children(':not(:first-child)').remove()
@@ -1509,6 +1582,7 @@ jQuery(document).ready(function ($) {
             if (options.SelectModel.siblings('.select2-container--notfirst').length)
                 options.SelectModel.siblings('.select2-container--notfirst').removeClass('select2-container--notfirst')
             options.SelectModel.prop('selectedIndex', '0')
+            this.resizeFilter(options)
         },
         changeSelectModel: function (modelValue, options) {
             const CurrentMark = this.SelectedMark,
@@ -1524,7 +1598,7 @@ jQuery(document).ready(function ($) {
                     }
                 }
             })
-            // console.log(ModelItems)
+            this.resizeFilter(options)
         },
         clearSelectModel: function () {
             this.SelectedModel = null
@@ -1535,50 +1609,58 @@ jQuery(document).ready(function ($) {
                 if (!$(item).hasClass('hide'))
                     ShowedItems.push($(item))
             })
-            // console.log(ShowedItems)
-            ShowedItems.sort(function (itemA, itemB) {
-                // console.log(IndexA, IndexB)
-                if (state == 'reset') {
-                    const DataIndex = 'data-index',
-                        IndexA = parseInt(itemA.attr(DataIndex)),
-                        IndexB = parseInt(itemB.attr(DataIndex))
-                    if (IndexA < IndexB) return -1;
-                    if (IndexA > IndexB) return 1;
-                }
-                if (state == 'desc-views') {
-                    const DataViews = 'view-count',
-                        ViewsA = parseInt(itemA.find('.' + DataViews + '> span').text().replace(/\s+/g, "")),
-                        ViewsB = parseInt(itemB.find('.' + DataViews + '> span').text().replace(/\s+/g, ""))
-                    // console.log(ViewsA, ViewsB)
-                    if (ViewsA > ViewsB) return -1;
-                    if (ViewsA < ViewsB) return 1;
-                }
-                if (state == 'asc-price' || 'desc-price') {
-                    const DataPrice = 'item-price-current',
-                        PriceA = parseInt(itemA.find('.' + DataPrice + '> span').text().replace(/\s+/g, "")),
-                        PriceB = parseInt(itemB.find('.' + DataPrice + '> span').text().replace(/\s+/g, ""))
-                    if (state == 'asc-price') {
-                        if (PriceA < PriceB) return -1;
-                        if (PriceA > PriceB) return 1;
-                    }
-                    else {
-                        if (PriceA > PriceB) return -1;
-                        if (PriceA < PriceB) return 1;
-                    }
-                }
-                return 0;
 
-            })
-                .forEach(function (item, index) {
-                    item.appendTo(options.CatalogItemsWrapper)
-                    // if (state == 'reset') {
-                    if (index == 4 && document.body.clientWidth >= 1200) {
-                        options.ItemRequest.show()
-                        options.ItemRequest.insertAfter(item)
+            if (state) {
+                ShowedItems.sort(function (itemA, itemB) {
+                    // console.log(IndexA, IndexB)
+                    if (state == 'reset') {
+                        const DataIndex = 'data-index',
+                            IndexA = parseInt(itemA.attr(DataIndex)),
+                            IndexB = parseInt(itemB.attr(DataIndex))
+                        if (IndexA < IndexB) return -1;
+                        if (IndexA > IndexB) return 1;
                     }
-                    // }
-                });
+                    if (state == 'desc-views') {
+                        const DataViews = 'view-count',
+                            ViewsA = parseInt(itemA.find('.' + DataViews + '> span').text().replace(/\s+/g, "")),
+                            ViewsB = parseInt(itemB.find('.' + DataViews + '> span').text().replace(/\s+/g, ""))
+                        // console.log(ViewsA, ViewsB)
+                        if (ViewsA > ViewsB) return -1;
+                        if (ViewsA < ViewsB) return 1;
+                    }
+                    if (state == 'asc-price' || 'desc-price') {
+                        const DataPrice = 'item-price-current',
+                            PriceA = parseInt(itemA.find('.' + DataPrice + '> span').text().replace(/\s+/g, "")),
+                            PriceB = parseInt(itemB.find('.' + DataPrice + '> span').text().replace(/\s+/g, ""))
+                        if (state == 'asc-price') {
+                            if (PriceA < PriceB) return -1;
+                            if (PriceA > PriceB) return 1;
+                        }
+                        else {
+                            if (PriceA > PriceB) return -1;
+                            if (PriceA < PriceB) return 1;
+                        }
+                    }
+                    return 0;
 
+                })
+                    .forEach(function (item, index) {
+                        item.appendTo(options.CatalogItemsWrapper)
+                        // if (state == 'reset') {
+                        if (options.SelectMark.prop('selectedIndex') == 0) {
+                            if ((index == 4 && document.body.clientWidth >= 1200) || index == 2 && document.body.clientWidth >= 768) {
+                                options.ItemRequest.insertAfter(item)
+                                options.ItemRequest.show()
+                            }
+                        }
+
+                        // }
+                    });
+                options.AllItems = options.CatalogItemsWrapper.find('.catalog-item')
+                this.getItemsProps(options)
+                this.resizeFilter(options)
+            }
+            // console.log(options.AllItems)
         },
         resetFltr: function (options) {
 
@@ -1594,18 +1676,22 @@ jQuery(document).ready(function ($) {
             //------------------------------------
 
             ResetFltrSelects(options.SelectMark)
+            this.SelectedMark = null
 
             options.SelectModel.children(':not(:first-child)').remove()
             ResetFltrSelects(options.SelectModel)
             options.SelectModel.prop('disabled', true).trigger('change.select2')
+            this.SelectedModel = null
 
             ResetFltrSelects(options.SelectSort)
 
             // Вызов функции сброса фильтра в состояние "По умолчанию"
             this.sortedFltr(options, 'reset')
+            // this.resizeFilter(options)
         },
         events: function (options) {
             const $thisObj = this
+            $thisObj.resizeFilter(options)
             options.SelectMark.on('change', function () {
                 $thisObj.SelectedMark = $(this).val()
                 $thisObj.fillFltrModel($thisObj.SelectedMark, options)
@@ -1626,6 +1712,28 @@ jQuery(document).ready(function ($) {
             })
             options.ResetBtn.on('click', function () {
                 $thisObj.resetFltr(options)
+                $("html, body").stop().animate(
+                    {
+                        scrollTop: options.CatalogItemsWrapper.closest('.catalog').offset().top,
+                    },
+                    {
+                        duration: 800, // продолжительность анимации
+                        // easing: "linear", // скорость анимации
+                    }
+                );
+            })
+            $(window).on('resize', function () {
+                if ($thisObj.docWidth != document.body.clientWidth) {
+                    options.docWidth = document.body.clientWidth
+                    $thisObj.resizeFilter(options)
+                }
+            })
+
+            const BtnHideElem = options.AllItems.closest('.catalog-wrapper').find('.btn-mob')
+            BtnHideElem.on('click', function (e) {
+                e.preventDefault()
+                $thisObj.ShowHideElemsMobile(options)
+                // console.log('click')
             })
         },
 

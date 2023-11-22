@@ -110,7 +110,8 @@
     position: relative;
     transition: $transition;
 
-    &.hide {
+    &.hide,
+    &.mob-hide {
         display: none;
     }
 
@@ -397,7 +398,7 @@
         }
 
         @media (max-width: 767px) {
-            display: none;
+            display: none !important;
         }
     }
 
@@ -456,7 +457,7 @@
 
     >.btn-mob {
         @media screen {
-            @media (min-width: 768px) {
+            @media (min-width: 1200px) {
                 display: none;
             }
         }
@@ -465,15 +466,10 @@
     @media screen {
         @media (max-width: 1199px) {
             margin-top: 50px;
-        }
-
-        @media (max-width: 767px) {
             @include flex-column;
-            margin-top: 30px;
-            gap: 30px;
             justify-content: initial;
             align-items: center;
-
+            gap: 20px;
 
             .btn:last-child {
                 height: auto;
@@ -492,6 +488,10 @@
                     color: #0046E2;
                 }
             }
+        }
+
+        @media (max-width: 1199px) {
+            margin-top: 30px;
         }
     }
 }
