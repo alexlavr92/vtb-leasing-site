@@ -843,6 +843,7 @@ table {
 // Start Tooltip 
 .tootlip-wrapper {
     position: relative;
+    display: inline-block;
 
     .tooltip {
         $allSize: 20;
@@ -860,7 +861,7 @@ table {
             background: $color-second;
             color: $color-main;
             font-size: .7rem;
-            padding-right: 1px;
+            // padding-right: 1px;
 
             @media screen {
                 @media (max-width: 1199px) {

@@ -339,6 +339,10 @@ Theme Version:	1.0
 
         .tootlip-wrapper {
             margin-left: 10px;
+
+            .tooltip {
+                padding-right: 1px;
+            }
         }
     }
 }

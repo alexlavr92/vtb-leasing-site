@@ -1293,6 +1293,7 @@ table {
 
 .tootlip-wrapper {
   position: relative;
+  display: inline-block;
 }
 .tootlip-wrapper .tooltip {
   width: 20px;
@@ -1306,7 +1307,6 @@ table {
   background: #002882;
   color: #ffffff;
   font-size: 0.7rem;
-  padding-right: 1px;
 }
 @media screen and (max-width: 1199px) {
   .tootlip-wrapper.tootlip-question .tooltip {
@@ -2084,6 +2084,9 @@ header.sticky {
 }
 .card-price-tabs .price-tab-prices .tootlip-wrapper {
   margin-left: 10px;
+}
+.card-price-tabs .price-tab-prices .tootlip-wrapper .tooltip {
+  padding-right: 1px;
 }
 
 section.card-descript {

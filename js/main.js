@@ -949,22 +949,24 @@ jQuery(document).ready(function ($) {
         const $this = $(this),
             $thisSiblings = $this.siblings('.active'),
             $thisTabs = $this.closest('.card-price-tabs'),
+            $thisCreditText = $thisTabs.next('.card-credit-text'),
             $thisTabsEditContent = {
-                tabsMileAge: $thisTabs.find('.price-tab-mileage span'),
-                tabsPriceCurrent: $thisTabs.find('.price-tab-prices--current span:first-child'),
-                tabsPriceOld: $thisTabs.find('.price-tab-prices--old span:first-child')
+                MileAge: $thisTabs.find('.price-tab-mileage span'),
+                CurrentPrice: $thisTabs.find('.price-tab-prices--current span:first-child'),
+                OldPrice: $thisTabs.find('.price-tab-prices--old span:first-child'),
+                CreditPay: $thisCreditText.find('.credit-pay'),
+                FirstPay: $thisCreditText.find('.first-pay'),
+                CreditRate: $thisCreditText.find('.credit-rate'),
+                Term: $thisCreditText.find('.term')
             },
-            $thisAttr = {
-                tabsMileAge: $this.attr('data-mileage'),
-                tabsPriceCurrent: $this.attr('data-price-current'),
-                tabsPriceOld: $this.attr('data-price-old')
-            }
+            $thisDataParams = JSON.parse($this.attr('data-params'))
+        // console.log($thisDataParams)
         for (var key in $thisTabsEditContent) {
             if ($thisTabsEditContent.hasOwnProperty(key)) {
                 const $obj = $thisTabsEditContent
-                $obj[key].text($thisAttr[key])
+                // console.log()
+                $obj[key].text($thisDataParams[key])
                 SpaceNumber($obj[key])
-                // console.log(key + " -> " + $thisTabsEditContent[key]);
             }
         }
         $thisSiblings.removeClass('active')
